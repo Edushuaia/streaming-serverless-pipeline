@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Cloud Dataflow: Motor de procesamiento serverless para transformación de datos en tiempo real.">
+        <meta name="keywords" content="Cloud Dataflow, GCP, Apache Beam, Autoescalado, Windowing, Streaming">
+        <title>Detalle | Cloud Dataflow</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+
+        <header class="hero">
+            <div class="container">
+                <h1 class="project-title">Pipeline Serverless de Streaming en
+                    GCP</h1>
+                <p class="subtitle">Análisis de Transacciones en Tiempo Real
+                    (Latencia Baja)</p>
+            </div>
+        </header>
+
+        <nav class="tool-nav">
+            <div class="container">
+                <a href="index.html" class="nav-item"
+                    data-tool="overview">Visión General</a>
+                <a href="pubsub.html" class="nav-item" data-tool="pubsub">Cloud
+                    Pub/Sub</a>
+                <a href="dataflow.html" class="nav-item active"
+                    data-tool="dataflow">Cloud Dataflow</a>
+                <a href="bigquery.html" class="nav-item"
+                    data-tool="bigquery">BigQuery</a>
+                <a href="apachebeam.html" class="nav-item"
+                    data-tool="apachebeam">Apache Beam (Python)</a>
+            </div>
+        </nav>
+
+        <main class="container main-content">
+            <section class="section tool-detail-content">
+                <h2>Cloud Dataflow: Motor de Procesamiento Serverless</h2>
+                <p>Cloud Dataflow es el servicio de Google Cloud para la
+                    ejecución de <em>pipelines</em> de procesamiento de datos
+                    escalables y totalmente gestionadas. Se basa en el modelo de
+                    programación unificado <strong>Apache Beam</strong>, que permite tratar
+                    el procesamiento <em>batch</em> y <em>streaming</em> con el mismo
+                    código.</p>
+
+                <h3>Rol en el Proyecto: Procesamiento en Tiempo Real</h3>
+                <p>Dataflow es el componente central que consume los mensajes
+                    del Topic de Pub/Sub y aplica la lógica de negocio antes de
+                    escribir en BigQuery. Su naturaleza <em>serverless</em> garantiza
+                    que el <em>pipeline</em> pueda manejar la carga sin intervención
+                    manual.</p>
+
+                <h3>Conceptos Clave Aplicados</h3>
+
+                <div class="component-list">
+                    <ul>
+                        <li>
+                            <h4>Autoescalado y Serverless</h4>
+                            <p>Dataflow gestiona automáticamente los recursos
+                                (máquinas virtuales/workers) y escala
+                                horizontalmente según la carga de datos que
+                                recibe de Pub/Sub. Esto fue crucial para validar
+                                la <strong>resiliencia</strong> ante picos simulados de
+                                transacciones.</p>
+                        </li>
+                        <li>
+                            <h4>Windowing (Ventanas de Tiempo)</h4>
+                            <p>Permite agrupar elementos por tiempo para
+                                realizar cálculos. Aplicamos una **Ventana Fija
+                                (Fixed Window)** de 30 segundos, esencial para
+                                transformar un flujo interminable de eventos
+                                individuales en un resumen periódico de
+                                ventas.</p>
+                        </li>
+                        <li>
+                            <h4>Latencia del Watermark</h4>
+                            <p>Monitoreamos constantemente el *Watermark* (Marca
+                                de Agua) para asegurar que el retraso en el
+                                procesamiento es mínimo. Una baja latencia del
+                                *Watermark* confirma que la *pipeline* está
+                                procesando los datos eficientemente en tiempo
+                                casi real.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <a href="https://cloud.google.com/dataflow" target="_blank" rel="noopener noreferrer"
+                    class="official-link">Documentación Oficial de Google Cloud
+                    Dataflow</a>
+            </section>
+
+            <!-- Quiz de Certificación -->
+            <section class="section quiz-container">
+                <h2 class="quiz-title">📝 Quiz de Certificación: Cloud Dataflow</h2>
+                <p class="quiz-intro">Pon a prueba tus conocimientos con preguntas tipo Professional Data Engineer</p>
+                <div id="dataflowQuiz"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Eduardo Villena Lozano | Ingeniería de Datos</p>
+        </footer>
+
+        <script src="js/main.js"></script>
+        <script src="js/quiz.js"></script>
+        <script>
+            // Preguntas específicas de Cloud Dataflow para Professional Data Engineer
+            const dataflowQuestions = [
+                {
+                    question: "Tu pipeline de Dataflow en streaming está experimentando altos costos. Los workers se escalan constantemente pero el throughput es bajo. ¿Cuál es la causa más probable y la solución?",
+                    options: [
+                        "Usar más workers fijos en lugar de autoscaling",
+                        "Aumentar el tamaño de las máquinas (machine type)",
+                        "Identificar y optimizar operaciones 'hot keys' (claves calientes)",
+                        "Cambiar de streaming a batch processing"
+                    ],
+                    correct: 2,
+                    explanation: "Los 'hot keys' son la causa más común de bajo throughput en Dataflow. Ocurren cuando demasiados elementos tienen la misma clave en una operación GroupByKey o Combine, creando un cuello de botella. La solución incluye: redistribuir las claves con técnicas como 'add random suffix', usar 'Combine.perKey' en lugar de GroupByKey cuando sea posible, o rediseñar el esquema de particionamiento."
+                },
+                {
+                    question: "¿Cuál es la diferencia principal entre 'Windowing' y 'Triggers' en Apache Beam/Dataflow?",
+                    options: [
+                        "Windowing define CUÁNDO agrupar eventos; Triggers definen CUÁNDO emitir resultados",
+                        "Windowing es para batch; Triggers es para streaming",
+                        "Windowing maneja datos tardíos; Triggers manejan datos a tiempo",
+                        "Son lo mismo, solo diferente sintaxis"
+                    ],
+                    correct: 0,
+                    explanation: "Windowing divide el flujo de datos en ventanas finitas basadas en timestamps (ej: ventanas de 5 minutos). Triggers determinan CUÁNDO se emiten los resultados de cada ventana: puede ser al final de la ventana, periódicamente, después de cierto número de elementos, o combinaciones. Esta separación de 'qué' y 'cuándo' es fundamental en el modelo de Beam."
+                },
+                {
+                    question: "Estás procesando datos de IoT con timestamps de eventos. Algunos dispositivos envían datos con 10 minutos de retraso. ¿Qué configuración de Dataflow debes ajustar?",
+                    options: [
+                        "Allowed lateness (latencia permitida) del watermark",
+                        "Window size (tamaño de ventana)",
+                        "Number of workers",
+                        "Processing time trigger"
+                    ],
+                    correct: 0,
+                    explanation: "Debes configurar 'allowed lateness' para la ventana. Por defecto, cuando el watermark pasa el final de una ventana, esta se cierra y los datos tardíos se descartan. Con 'allowed lateness', puedes especificar cuánto tiempo adicional esperar para procesar datos tardíos. Ejemplo: .withAllowedLateness(Duration.standardMinutes(10)). Los resultados se actualizarán cada vez que lleguen datos tardíos dentro de este período."
+                },
+                {
+                    question: "¿Cuál es el propósito del 'Shuffle' en Dataflow y cuándo se produce?",
+                    options: [
+                        "Distribuir datos aleatoriamente entre workers para balanceo de carga",
+                        "Reorganizar datos por clave antes de operaciones como GroupByKey",
+                        "Mezclar datos de múltiples fuentes en un solo stream",
+                        "Cachear datos en disco para optimizar memoria"
+                    ],
+                    correct: 1,
+                    explanation: "El 'Shuffle' es una operación costosa que reorganiza datos por clave para que todos los elementos con la misma clave lleguen al mismo worker. Se produce automáticamente antes de operaciones como GroupByKey, CoGroupByKey, y Combine. Es la operación más costosa en Dataflow (I/O intensivo). Para optimizar: minimiza GroupByKeys, usa Combine.perKey en lugar de GroupByKey + sum, y considera si realmente necesitas agrupar."
+                },
+                {
+                    question: "Tu pipeline de streaming procesa transacciones financieras. Necesitas garantizar que cada transacción se procese exactamente una vez. ¿Qué debes implementar?",
+                    options: [
+                        "Usar Session Windows en lugar de Fixed Windows",
+                        "Configurar 'exactly-once' processing con idempotent sinks",
+                        "Aumentar el número de workers para redundancia",
+                        "Usar Global Windows con un solo worker"
+                    ],
+                    correct: 1,
+                    explanation: "Para exactly-once processing necesitas: 1) Dataflow con exactly-once mode habilitado (usa checkpointing interno), 2) Sinks idempotentes (ej: BigQuery con insertId, Bigtable con timestamp, o implementar deduplicación). Aunque Dataflow puede garantizar que la lógica de transformación se ejecute exactly-once, el sink debe ser idempotente para evitar duplicados en caso de reintento. Solo algunos sinks nativos soportan esto automáticamente."
+                },
+                {
+                    question: "¿Cuál es la diferencia entre 'Dataflow Shuffle' y 'Dataflow Streaming Engine'?",
+                    options: [
+                        "Shuffle procesa datos batch; Streaming Engine procesa datos streaming",
+                        "Shuffle es la operación de reorganizar datos; Streaming Engine externaliza estado y procesamiento fuera de workers",
+                        "Son lo mismo con diferente nombre",
+                        "Shuffle es más caro pero más rápido que Streaming Engine"
+                    ],
+                    correct: 1,
+                    explanation: "SHUFFLE: Operación de reorganización de datos por clave (costosa, I/O intensiva). STREAMING ENGINE: Arquitectura que externaliza el estado del pipeline y buffers fuera de los workers VM hacia el backend de Dataflow. BENEFICIOS de Streaming Engine: 1) Workers más pequeños (menos CPU/memoria), 2) Recuperación más rápida de fallos, 3) Mejor autoscaling, 4) Reduce costos. RECOMENDACIÓN: Siempre habilita Streaming Engine para pipelines de streaming (flag --enable_streaming_engine)."
+                },
+                {
+                    question: "Tu pipeline de Dataflow batch tarda 4 horas en procesar 10TB. ¿Cuál es la mejor estrategia para reducir el tiempo de ejecución?",
+                    options: [
+                        "Aumentar el número de workers máximos en autoscaling",
+                        "Usar máquinas con más CPU y memoria",
+                        "Identificar y eliminar shuffles innecesarios, usar Combine en lugar de GroupByKey",
+                        "Dividir el job en múltiples pipelines más pequeños"
+                    ],
+                    correct: 2,
+                    explanation: "La optimización MÁS EFECTIVA es eliminar shuffles innecesarios. Cada GroupByKey causa un shuffle (costoso). OPTIMIZACIONES: 1) Usa Combine.perKey en lugar de GroupByKey + aggregate, 2) Filtra/selecciona columnas ANTES de shuffles, 3) Usa Fusion para combinar operaciones, 4) Revisa el Dataflow UI - Execution Graph para identificar cuellos de botella. Aumentar workers/máquinas ayuda, pero si el problema es lógica ineficiente, solo aumenta costos sin gran mejora."
+                },
+                {
+                    question: "¿Cuándo deberías usar 'Session Windows' en lugar de 'Fixed Windows' o 'Sliding Windows'?",
+                    options: [
+                        "Cuando necesitas ventanas de tamaño fijo y predecible",
+                        "Para capturar ráfagas de actividad con gaps de inactividad (ej: sesiones de usuario)",
+                        "Cuando necesitas solapamiento entre ventanas",
+                        "Solo en pipelines batch, no en streaming"
+                    ],
+                    correct: 1,
+                    explanation: "SESSION WINDOWS agrupa eventos en sesiones basadas en gaps de inactividad. Ejemplo: eventos de usuario se agrupan en una sesión hasta que hay 30 minutos sin actividad, entonces se cierra la sesión. CASOS DE USO: análisis de sesiones web, detección de patrones de comportamiento, procesamiento de logs por sesión. Las ventanas son de TAMAÑO DINÁMICO. Configura el 'gap duration': window.Sessions.withGapDuration(Duration.minutes(30))."
+                },
+                {
+                    question: "Tu pipeline de streaming tiene latencia de procesamiento de 5 minutos cuando el SLA requiere menos de 1 minuto. ¿Qué deberías revisar primero?",
+                    options: [
+                        "El tamaño de las ventanas (window size)",
+                        "El watermark lag y allowed lateness",
+                        "External service calls o shuffles bloqueantes en transformaciones",
+                        "El número de subscriptions en Pub/Sub"
+                    ],
+                    correct: 2,
+                    explanation: "Revisa PRIMERO las transformaciones por: 1) Llamadas síncronas a servicios externos (APIs, databases) que bloquean, 2) Shuffles innecesarios (GroupByKey), 3) Operaciones costosas sin optimizar. USA: 1) Beam Metrics para identificar DoFns lentas, 2) Dataflow UI - Worker Logs para detectar llamadas lentas, 3) Asynchronous lookups o batching para external calls. El watermark lag afecta cuándo se emiten resultados de ventanas, pero no la latencia de procesamiento de elementos individuales."
+                },
+                {
+                    question: "¿Qué significa 'backpressure' en el contexto de Dataflow y cómo se maneja?",
+                    options: [
+                        "Es cuando el pipeline procesa datos más rápido que la fuente",
+                        "Es cuando una etapa del pipeline es más lenta que las anteriores, causando acumulación",
+                        "Es una configuración manual que debes ajustar",
+                        "Solo ocurre en pipelines batch, no en streaming"
+                    ],
+                    correct: 1,
+                    explanation: "BACKPRESSURE ocurre cuando una stage es más lenta que las anteriores (ej: escritura a BigQuery es lenta, pero transformaciones son rápidas), causando acumulación en buffers. Dataflow MANEJA AUTOMÁTICAMENTE: 1) Reduce la velocidad de lectura de la fuente, 2) Incrementa autoscaling de workers si es posible, 3) Buffers intermedios absorben ráfagas temporales. INDICADORES: Monitorea 'System Lag' y 'Backlog' en Dataflow UI. Si persiste: optimiza la stage lenta, aumenta workers, o usa batching en escrituras."
+                }
+            ];
+
+            document.addEventListener('DOMContentLoaded', () => {
+                new Quiz('dataflowQuiz', dataflowQuestions);
+            });
+        </script>
+    </body>
+</html>

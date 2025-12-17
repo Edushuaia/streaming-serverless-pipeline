@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="BigQuery: Data Warehouse analítico serverless para almacenamiento y análisis de datos en tiempo real.">
+        <meta name="keywords" content="BigQuery, GCP, Data Warehouse, SQL, Streaming Inserts, Analítica">
+        <title>Detalle | BigQuery</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+
+        <header class="hero">
+            <div class="container">
+                <h1 class="project-title">Pipeline Serverless de Streaming en
+                    GCP</h1>
+                <p class="subtitle">Análisis de Transacciones en Tiempo Real
+                    (Latencia Baja)</p>
+            </div>
+        </header>
+
+        <nav class="tool-nav">
+            <div class="container">
+                <a href="index.html" class="nav-item"
+                    data-tool="overview">Visión General</a>
+                <a href="pubsub.html" class="nav-item" data-tool="pubsub">Cloud
+                    Pub/Sub</a>
+                <a href="dataflow.html" class="nav-item"
+                    data-tool="dataflow">Cloud Dataflow</a>
+                <a href="bigquery.html" class="nav-item active"
+                    data-tool="bigquery">BigQuery</a>
+                <a href="apachebeam.html" class="nav-item"
+                    data-tool="apachebeam">Apache Beam (Python)</a>
+            </div>
+        </nav>
+
+        <main class="container main-content">
+            <section class="section tool-detail-content">
+                <h2>BigQuery: Data Warehouse Analítico y Destino Final</h2>
+                <p>BigQuery es el servicio de *Data Warehouse* sin servidor
+                    (serverless) de Google Cloud. Es altamente escalable y
+                    optimizado para el análisis de petabytes de datos usando
+                    consultas SQL. En este proyecto, actúa como el destino final
+                    de los datos procesados por Dataflow.</p>
+
+                <h3>Rol en el Proyecto: Almacenamiento y Disponibilidad
+                    Inmediata</h3>
+                <p>Elegimos BigQuery porque es la mejor opción para manejar las
+                    <strong>inserciones de streaming</strong> de Dataflow y poner los datos a
+                    disposición inmediata para el análisis o visualización (por
+                    ejemplo, con Looker Studio).</p>
+
+                <h3>Conceptos Clave Aplicados</h3>
+
+                <div class="component-list">
+                    <ul>
+                        <li>
+                            <h4>Inserción de Streaming</h4>
+                            <p>Se utilizó el método de inserción de *streaming*
+                                (`method='STREAMING_INSERTS'`) en la fase de
+                                escritura de Apache Beam. Esto permite que los
+                                datos agregados por Dataflow (las ventanas de 30
+                                segundos) estén disponibles en BigQuery **en
+                                cuestión de segundos**.</p>
+                        </li>
+                        <li>
+                            <h4>Modelo Columnar y Particionamiento</h4>
+                            <p>BigQuery es un almacén de datos columnar. Aunque
+                                Dataflow inserta los datos, BigQuery está
+                                optimizado para la partición automática por la
+                                columna de tiempo (`window_start_time`). Esto
+                                garantiza que las consultas analíticas sobre
+                                períodos específicos sean **rápidas y
+                                económicas**.</p>
+                        </li>
+                        <li>
+                            <h4>Esquema y Validación</h4>
+                            <p>Se definió un esquema de tabla que solo incluye
+                                los datos <strong>agregados</strong> (<code>total_transactions</code>,
+                                <code>total_amount_sum</code>), asegurando que solo se
+                                almacena información limpia, concisa y lista
+                                para ser analizada, optimizando el rendimiento
+                                de las consultas.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <a href="https://cloud.google.com/bigquery" target="_blank" rel="noopener noreferrer"
+                    class="official-link">Documentación Oficial de Google Cloud
+                    BigQuery</a>
+            </section>
+
+            <!-- Quiz de Certificación -->
+            <section class="section quiz-container">
+                <h2 class="quiz-title">📝 Quiz de Certificación: BigQuery</h2>
+                <p class="quiz-intro">Pon a prueba tus conocimientos con preguntas tipo Professional Data Engineer</p>
+                <div id="bigqueryQuiz"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Eduardo Villena Lozano | Ingeniería de Datos</p>
+        </footer>
+
+        <script src="js/main.js"></script>
+        <script src="js/quiz.js"></script>
+        <script>
+            // Preguntas específicas de BigQuery para Professional Data Engineer
+            const bigqueryQuestions = [
+                {
+                    question: "Tu tabla de BigQuery con 5TB de datos tiene consultas lentas y costosas. La mayoría de las consultas filtran por 'fecha' y 'región'. ¿Cuál es la mejor estrategia de optimización?",
+                    options: [
+                        "Crear índices en las columnas 'fecha' y 'región'",
+                        "Usar particionamiento por 'fecha' y clustering por 'región'",
+                        "Aumentar el número de slots reservados",
+                        "Denormalizar todas las tablas relacionadas"
+                    ],
+                    correct: 1,
+                    explanation: "BigQuery NO usa índices tradicionales. La mejor práctica es: PARTICIONAR por fecha (limita el escaneo de particiones) y CLUSTERING por región (organiza datos físicamente). Particionar reduce costos (solo escanea particiones necesarias) y clustering mejora rendimiento (datos relacionados están juntos). Ejemplo: si consultas datos del último mes en región 'US', BigQuery solo escanea esa partición y salta bloques de otras regiones."
+                },
+                {
+                    question: "Estás cargando datos de streaming a BigQuery. ¿Cuál es la diferencia entre 'streaming inserts' y 'BigQuery Storage Write API'?",
+                    options: [
+                        "Storage Write API es más lento pero más barato",
+                        "Streaming inserts tiene disponibilidad inmediata; Storage Write API tiene latencia pero es más eficiente",
+                        "Storage Write API solo funciona con Dataflow",
+                        "No hay diferencia, son sinónimos"
+                    ],
+                    correct: 1,
+                    explanation: "STREAMING INSERTS: Disponibilidad INMEDIATA (consultas ven datos al instante), pero costo más alto ($0.010 por 200MB) y límites de cuota más estrictos. STORAGE WRITE API: Latencia de hasta 90 segundos para disponibilidad, pero más eficiente, mejor throughput, y sin costos de streaming. Usa Storage Write API para cargas masivas o pipelines de alta frecuencia donde 90 segundos de latencia es aceptable. Usa streaming inserts para casos que requieren latencia sub-segundo."
+                },
+                {
+                    question: "¿Cuál es la diferencia clave entre una tabla 'particionada' y una tabla 'clustered' en BigQuery?",
+                    options: [
+                        "Particionado divide la tabla en segmentos; Clustering ordena datos dentro de cada segmento",
+                        "Particionado es para tablas grandes; Clustering es para tablas pequeñas",
+                        "Particionado reduce costos; Clustering reduce latencia (no hay overlap)",
+                        "Son mutuamente exclusivos, solo puedes usar uno"
+                    ],
+                    correct: 0,
+                    explanation: "PARTICIONADO: Divide la tabla en segmentos físicos separados (por fecha, rango entero, etc.). BigQuery puede ELIMINAR particiones completas sin escanearlas (pruning), reduciendo costos. CLUSTERING: Ordena y organiza datos DENTRO de cada partición por hasta 4 columnas. Mejora rendimiento pero NO garantiza eliminación de datos (best-effort pruning). MEJOR PRÁCTICA: Combinar ambos - particionar por columna de baja cardinalidad (fecha), clustering por columnas de filtros comunes (región, usuario, categoría)."
+                },
+                {
+                    question: "Necesitas unir (JOIN) dos tablas grandes en BigQuery y la consulta es muy lenta. ¿Cuál es la técnica de optimización más efectiva?",
+                    options: [
+                        "Usar INNER JOIN en lugar de LEFT JOIN siempre",
+                        "Filtrar datos lo antes posible ANTES del JOIN usando WHERE",
+                        "Dividir el JOIN en múltiples consultas más pequeñas",
+                        "Aumentar el número de workers en Dataflow"
+                    ],
+                    correct: 1,
+                    explanation: "FILTRAR ANTES DEL JOIN es crítico. BigQuery procesa JOINs después de leer datos, así que si filtras con WHERE ANTES del JOIN, reduces dramáticamente los datos procesados. Ejemplo: en lugar de 'FROM tabla1 JOIN tabla2 ON ... WHERE fecha > 2024', usa 'FROM (SELECT * FROM tabla1 WHERE fecha > 2024) JOIN (SELECT * FROM tabla2 WHERE fecha > 2024)'. También: asegura que estás haciendo JOIN en columnas particionadas/clustered, y considera pre-agregar datos si es posible."
+                },
+                {
+                    question: "¿Cuándo deberías usar 'materialized views' en BigQuery en lugar de vistas normales?",
+                    options: [
+                        "Siempre, las materialized views son siempre más rápidas",
+                        "Cuando la consulta es compleja/costosa y los datos base cambian con poca frecuencia",
+                        "Solo para tablas con menos de 1GB de datos",
+                        "Nunca, son más caras sin beneficio real"
+                    ],
+                    correct: 1,
+                    explanation: "Materialized views PRE-CALCULAN y ALMACENAN resultados de consultas complejas. Casos de uso ideales: 1) Agregaciones costosas consultadas frecuentemente, 2) JOINs complejos entre tablas grandes, 3) Datos base cambian ocasionalmente. BigQuery ACTUALIZA incrementalmente la materialized view cuando cambian datos base. COSTO: Pagas por almacenamiento de la view + actualizaciones incrementales. NO uses si: datos cambian constantemente (alto costo de actualización), consulta es simple (overhead innecesario), o necesitas datos en tiempo real (puede haber lag de minutos)."
+                },
+                {
+                    question: "Tu empresa tiene datos sensibles en BigQuery. ¿Cuál es la mejor estrategia para proteger información personal (PII) en columnas específicas?",
+                    options: [
+                        "Usar encriptación a nivel de columna manualmente antes de insertar",
+                        "Implementar Column-level Security con Policy Tags y Data Catalog",
+                        "Crear vistas separadas sin las columnas sensibles para cada usuario",
+                        "Usar row-level security para ocultar filas completas"
+                    ],
+                    correct: 1,
+                    explanation: "COLUMN-LEVEL SECURITY con Policy Tags es la solución nativa y escalable: 1) Crea taxonomías en Data Catalog, 2) Aplica policy tags a columnas sensibles (email, SSN, etc.), 3) Usa IAM para controlar quién puede ver cada policy tag. Los usuarios sin permisos ven NULL en esas columnas. VENTAJAS: Control granular, auditable, integrado con IAM, funciona con todas las herramientas de BigQuery. COMPLEMENTA con DLP API para detectar y clasificar PII automáticamente."
+                },
+                {
+                    question: "¿Cuál es la diferencia entre 'on-demand pricing' y 'flat-rate pricing' en BigQuery?",
+                    options: [
+                        "On-demand es más barato siempre",
+                        "On-demand cobra por TB escaneados; Flat-rate es capacidad reservada con costo fijo mensual",
+                        "Flat-rate solo está disponible para enterprise customers",
+                        "On-demand tiene mejor performance que flat-rate"
+                    ],
+                    correct: 1,
+                    explanation: "ON-DEMAND: Pagas $5 por TB de datos escaneados (hasta $6.25 con análisis BI Engine). Bueno para workloads impredecibles o bajos volúmenes. FLAT-RATE: Reservas slots (unidades de capacidad computacional) por $2,000/100 slots/mes (commitments de 1 año) o más con flex slots. CUÁNDO USAR FLAT-RATE: 1) Workloads predecibles y altos volúmenes (break-even ~$10K/mes), 2) Necesitas performance predecible sin throttling, 3) Múltiples proyectos compartiendo capacidad. USA on-demand para empezar, migra a flat-rate al escalar."
+                },
+                {
+                    question: "¿Qué es BigQuery BI Engine y cuándo deberías usarlo?",
+                    options: [
+                        "Un motor de ETL para transformar datos en BigQuery",
+                        "Un servicio de caching en memoria para acelerar consultas de BI con baja latencia",
+                        "Una herramienta de visualización como Looker",
+                        "Un engine alternativo más barato que el estándar"
+                    ],
+                    correct: 1,
+                    explanation: "BI ENGINE es un servicio de caching IN-MEMORY que acelera consultas interactivas de dashboards. BENEFICIOS: 1) Latencia sub-segundo para consultas repetitivas, 2) Reduce costos (consultas cacheadas no se cobran), 3) Integración automática con Looker, Data Studio, etc. CUÁNDO USAR: Dashboards interactivos con usuarios concurrentes consultando los mismos datos agregados. LIMITACIONES: Solo cachea agregaciones/queries compatibles (no todas), requiere reservar capacidad en GB de RAM ($0.048 por GB/hora). Complementa, no reemplaza optimizaciones de tablas."
+                },
+                {
+                    question: "¿Cuál es la mejor práctica para exportar grandes volúmenes de datos (>1TB) desde BigQuery a Cloud Storage?",
+                    options: [
+                        "Usar la UI de BigQuery para export directo",
+                        "Usar EXPORT DATA en SQL con wildcard para generar múltiples archivos particionados",
+                        "Ejecutar consultas y guardar resultados manualmente",
+                        "Usar bq command-line tool con un solo archivo de output"
+                    ],
+                    correct: 1,
+                    explanation: "Para exports grandes usa EXPORT DATA con wildcards: EXPORT DATA OPTIONS(uri='gs://bucket/prefix-*.json', format='JSON') AS SELECT * FROM tabla. IMPORTANTES: 1) Usa WILDCARD (*) para generar múltiples archivos en paralelo (más rápido), 2) BigQuery limita archivos individuales a 1GB, el wildcard lo maneja automáticamente, 3) Considera comprimir (compression='GZIP'), 4) Para Avro/Parquet (mejores para analytics) en lugar de JSON/CSV. ALTERNATIVA: Usa Dataflow para procesamiento y export simultáneo."
+                },
+                {
+                    question: "Necesitas unir una tabla grande (1TB) con una tabla pequeña (100MB) frecuentemente. ¿Cuál es la mejor optimización?",
+                    options: [
+                        "Crear un JOIN pre-calculado en una tabla separada",
+                        "Usar BROADCAST JOIN hint para la tabla pequeña",
+                        "Denormalizar completamente ambas tablas",
+                        "Crear índices en las columnas de join"
+                    ],
+                    correct: 1,
+                    explanation: "Usa /* @hints BROADCAST(small_table) */ para forzar un BROADCAST JOIN. BigQuery copia la tabla pequeña a todos los workers, evitando shuffle de la tabla grande. Esto es DRAMÁTICAMENTE más eficiente. EJEMPLO: SELECT * FROM large_table JOIN /* @hints BROADCAST(small_table) */ small_table ON ... CUÁNDO: Tabla pequeña < 10GB, Join frecuente. BigQuery a veces lo hace automáticamente, pero el hint lo garantiza. NO USES si ambas tablas son grandes (broadcast sería costoso)."
+                }
+            ];
+
+            document.addEventListener('DOMContentLoaded', () => {
+                new Quiz('bigqueryQuiz', bigqueryQuestions);
+            });
+        </script>
+    </body>
+</html>

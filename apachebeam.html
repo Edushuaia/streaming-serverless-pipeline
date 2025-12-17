@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Apache Beam: Modelo de programación unificado para definición de pipelines de procesamiento de datos.">
+        <meta name="keywords" content="Apache Beam, Python, Pipeline, PCollection, DoFn, Windowing, Dataflow">
+        <title>Detalle | Apache Beam (Python)</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+
+        <header class="hero">
+            <div class="container">
+                <h1 class="project-title">Pipeline Serverless de Streaming en
+                    GCP</h1>
+                <p class="subtitle">Análisis de Transacciones en Tiempo Real
+                    (Latencia Baja)</p>
+            </div>
+        </header>
+
+        <nav class="tool-nav">
+            <div class="container">
+                <a href="index.html" class="nav-item"
+                    data-tool="overview">Visión General</a>
+                <a href="pubsub.html" class="nav-item" data-tool="pubsub">Cloud
+                    Pub/Sub</a>
+                <a href="dataflow.html" class="nav-item"
+                    data-tool="dataflow">Cloud Dataflow</a>
+                <a href="bigquery.html" class="nav-item"
+                    data-tool="bigquery">BigQuery</a>
+                <a href="apachebeam.html" class="nav-item active"
+                    data-tool="apachebeam">Apache Beam (Python)</a>
+            </div>
+        </nav>
+
+        <main class="container main-content">
+            <section class="section tool-detail-content">
+                <h2>Apache Beam (Python): El Modelo de Programación
+                    Unificado</h2>
+                <p>Apache Beam es un modelo de programación de código abierto
+                    diseñado para definir *pipelines* de procesamiento de datos.
+                    Su principal ventaja es que permite escribir código que
+                    funciona de manera idéntica tanto para datos históricos
+                    (*batch*) como para datos en tiempo real (*streaming*).
+                    Cloud Dataflow es uno de los "Runners" (motores de
+                    ejecución) que utiliza el código de Beam.</p>
+
+                <h3>Rol en el Proyecto: La Lógica de Transformación</h3>
+                <p>Todo el procesamiento, desde el *parsing* del JSON hasta la
+                    agregación final, se definió utilizando las primitivas de
+                    Apache Beam en Python.</p>
+
+                <h3>Conceptos Clave Aplicados</h3>
+
+                <div class="component-list">
+                    <ul>
+                        <li>
+                            <h4>PCollections (Colecciones Paralelas)</h4>
+                            <p>Las PCollections representan los datos en una
+                                *pipeline* de Beam. En este proyecto, los
+                                mensajes brutos leídos de Pub/Sub se
+                                convirtieron en una PCollection, que luego se
+                                transformó en una PCollection de transacciones
+                                analizadas y, finalmente, en una PCollection de
+                                agregaciones de 30 segundos.</p>
+                        </li>
+                        <li>
+                            <h4>DoFn (ParDo)</h4>
+                            <p>Se utilizó el patrón <strong>ParDo</strong> (Parallel Do) para
+                                aplicar transformaciones personalizadas y
+                                paralelas, como la clase <code>ParseJson</code>.
+                                Esto es esencial para la lógica de negocio, como
+                                la validación y el mapeo de los datos brutos
+                                antes de la agregación.</p>
+                        </li>
+                        <li>
+                            <h4>Windowing</h4>
+                            <p>El uso de la Ventana Fija (Fixed Window) de 30
+                                segundos es el concepto más avanzado de Beam en
+                                este proyecto. Es la herramienta que convierte
+                                un flujo continuo de datos de *streaming* en
+                                paquetes discretos y medibles.</p>
+                        </li>
+                        <li>
+                            <h4>Runner (Dataflow)</h4>
+                            <p>El código escrito en Beam se hizo independiente
+                                del motor. Dataflow actuó como el <strong>Runner</strong>,
+                                tomando el código y ejecutándolo en el <em>cluster</em>
+                                de VMs en la nube, gestionando el escalado, la
+                                distribución y la tolerancia a fallos de forma
+                                automática.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <a href="https://beam.apache.org/" target="_blank" rel="noopener noreferrer"
+                    class="official-link">Documentación Oficial de Apache
+                    Beam</a>
+            </section>
+
+            <!-- Quiz de Certificación -->
+            <section class="section quiz-container">
+                <h2 class="quiz-title">📝 Quiz de Certificación: Apache Beam</h2>
+                <p class="quiz-intro">Pon a prueba tus conocimientos con preguntas tipo Professional Data Engineer</p>
+                <div id="apachebeamQuiz"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Eduardo Villena Lozano | Ingeniería de Datos</p>
+        </footer>
+
+        <script src="js/main.js"></script>
+        <script src="js/quiz.js"></script>
+        <script>
+            // Preguntas específicas de Apache Beam para Professional Data Engineer
+            const apachebeamQuestions = [
+                {
+                    question: "¿Cuál es la principal ventaja del modelo de programación de Apache Beam sobre escribir directamente para Dataflow o Spark?",
+                    options: [
+                        "Beam es más rápido que otros frameworks",
+                        "Beam permite portabilidad: el mismo código puede ejecutarse en múltiples runners (Dataflow, Flink, Spark)",
+                        "Beam solo funciona en GCP, garantizando mejor integración",
+                        "Beam usa menos recursos que otros frameworks"
+                    ],
+                    correct: 1,
+                    explanation: "La ventaja principal de Beam es la PORTABILIDAD. Escribes el código una vez usando el SDK de Beam, y puedes ejecutarlo en diferentes runners (Dataflow, Apache Flink, Apache Spark, Direct Runner para testing). Esto evita el vendor lock-in y permite migrar entre plataformas sin reescribir la lógica del pipeline. El modelo unificado funciona tanto para batch como streaming."
+                },
+                {
+                    question: "¿Cuándo deberías usar 'Combine.perKey()' en lugar de 'GroupByKey()' seguido de una operación de agregación?",
+                    options: [
+                        "Nunca, ambos producen el mismo resultado con el mismo rendimiento",
+                        "Siempre que sea posible, porque Combine.perKey optimiza la agregación con combinadores locales",
+                        "Solo en pipelines batch, no en streaming",
+                        "Solo cuando tienes menos de 1000 claves únicas"
+                    ],
+                    correct: 1,
+                    explanation: "SIEMPRE usa Combine.perKey() cuando sea posible. Combine aplica la función de combinación LOCALMENTE en cada worker antes del shuffle, reduciendo dramáticamente la cantidad de datos transferidos. Por ejemplo, para sumar valores, Combine suma parcialmente en cada worker, transfiere solo los subtotales, y luego los combina. GroupByKey transfiere TODOS los valores, causando shuffle masivo. Esta optimización es crítica para rendimiento."
+                },
+                {
+                    question: "Tienes un pipeline que lee de Pub/Sub, procesa mensajes y escribe a BigQuery. Algunos mensajes fallan al procesarse. ¿Cuál es la mejor práctica para manejar estos errores?",
+                    options: [
+                        "Dejar que el pipeline falle y reiniciarlo manualmente",
+                        "Usar try-catch y descartar mensajes con error",
+                        "Implementar un patrón Dead Letter Queue con PCollections separadas",
+                        "Aumentar el timeout de procesamiento"
+                    ],
+                    correct: 2,
+                    explanation: "La mejor práctica es implementar un patrón 'Dead Letter Queue' usando 'tagged outputs' en ParDo. Retornas los elementos exitosos en el output principal y los elementos fallidos en un output secundario (side output). Los elementos fallidos se escriben a una tabla/topic separado para análisis posterior. Ejemplo: result = messages | beam.ParDo(ProcessFn()).with_outputs('failed', main='success'). Esto evita que errores individuales detengan todo el pipeline."
+                },
+                {
+                    question: "¿Qué significa 'side input' en Apache Beam y cuál es su caso de uso típico?",
+                    options: [
+                        "Es un input secundario que se lee en paralelo con el input principal",
+                        "Es una PCollection adicional que se pasa como vista completa a cada elemento durante el procesamiento",
+                        "Es una forma de leer datos de múltiples fuentes simultáneamente",
+                        "Es un patrón obsoleto, reemplazado por CoGroupByKey"
+                    ],
+                    correct: 1,
+                    explanation: "Un 'side input' es una PCollection que se convierte en una vista (view) y se pasa COMPLETA a cada elemento procesado en un ParDo. Caso típico: tienes un stream de transacciones y necesitas enriquecer cada transacción con datos de referencia (ej: catálogo de productos, tasas de cambio). El side input debe caber en memoria del worker. Si es muy grande, usa joins (CoGroupByKey) o consultas externas. Sintaxis: beam.pvalue.AsDict(side_pcoll)."
+                },
+                {
+                    question: "En un pipeline de streaming con Beam, ¿cuál es la diferencia entre 'Event Time' y 'Processing Time'?",
+                    options: [
+                        "Son lo mismo, solo diferente terminología",
+                        "Event Time es cuando el evento ocurrió; Processing Time es cuando el pipeline lo procesa",
+                        "Event Time se usa en batch; Processing Time en streaming",
+                        "Processing Time es más preciso que Event Time"
+                    ],
+                    correct: 1,
+                    explanation: "Event Time es el timestamp de CUANDO EL EVENTO OCURRIÓ (ej: cuando se generó la transacción en el dispositivo). Processing Time es cuando el pipeline RECIBE/PROCESA el evento. La diferencia es crítica: si un dispositivo estuvo offline y envía datos tarde, Event Time es el original, Processing Time es mucho posterior. Para análisis correcto (ej: ventas por hora), DEBES usar Event Time. Beam usa Event Time por defecto con windowing, y el watermark rastrea el progreso."
+                },
+                {
+                    question: "¿Cuál es la diferencia entre 'CoGroupByKey' y 'Flatten' + 'GroupByKey' en Apache Beam?",
+                    options: [
+                        "Son idénticos en funcionalidad y rendimiento",
+                        "CoGroupByKey es para joins de PCollections con claves; Flatten+GroupByKey para merge simple",
+                        "CoGroupByKey solo funciona con 2 PCollections; Flatten+GroupByKey con N collections",
+                        "Flatten+GroupByKey es siempre más eficiente"
+                    ],
+                    correct: 1,
+                    explanation: "CoGroupByKey es específicamente para JOIN de múltiples PCollections POR CLAVE, manteniendo los valores de cada collection separados en iterables nombrados. Ejemplo: unir usuarios con pedidos por user_id. FLATTEN+GROUPBYKEY: merge múltiples PCollections en una sola y luego agrupa, perdiendo el origen de cada elemento. USA CoGroupByKey para joins relacionales. USA Flatten+GroupByKey cuando solo necesitas combinar y agrupar sin distinguir origen."
+                },
+                {
+                    question: "¿Qué es un 'PTransform' en Apache Beam y cómo se diferencia de un 'DoFn'?",
+                    options: [
+                        "Son sinónimos, representan lo mismo",
+                        "PTransform es una transformación completa; DoFn es la lógica de procesamiento elemento por elemento",
+                        "PTransform es para batch; DoFn es para streaming",
+                        "DoFn es obsoleto, siempre usa PTransform"
+                    ],
+                    correct: 1,
+                    explanation: "PTRANSFORM: Transformación de alto nivel que toma PCollection(s) como input y produce PCollection(s) como output. Puede contener múltiples pasos. Ejemplos: Map, Filter, GroupByKey son PTransforms. DOFN: Clase que implementa la LÓGICA de procesamiento elemento por elemento dentro de un ParDo. Un DoFn se usa DENTRO de un PTransform (ParDo es un PTransform que ejecuta un DoFn). MEJOR PRÁCTICA: Encapsula lógica compleja en PTransforms reutilizables compuestos de múltiples pasos."
+                },
+                {
+                    question: "¿Cuándo deberías usar 'Stateful Processing' en Apache Beam?",
+                    options: [
+                        "Nunca, es una característica avanzada innecesaria",
+                        "Cuando necesitas mantener estado por clave entre elementos (ej: contadores, deduplicación)",
+                        "Solo en pipelines batch, no en streaming",
+                        "Cuando quieres evitar usar GroupByKey"
+                    ],
+                    correct: 1,
+                    explanation: "Stateful Processing permite mantener ESTADO MUTABLE por clave entre elementos usando @StateSpec. CASOS DE USO: 1) Deduplicación (mantener IDs vistos), 2) Contadores incrementales, 3) Agregaciones complejas que no se pueden expresar con Combine, 4) Detección de patrones (ej: mantener últimos N eventos por usuario). IMPORTANTE: Estado es por clave, NO global. Requiere cuidado con memoria (limpia estado antiguo con timers). Más eficiente que GroupByKey para casos con estado incremental."
+                },
+                {
+                    question: "¿Qué son los 'Timers' en Apache Beam y para qué se usan?",
+                    options: [
+                        "Para medir el tiempo de ejecución del pipeline",
+                        "Para programar callbacks basados en event time o processing time",
+                        "Para configurar timeouts en operaciones I/O",
+                        "Para implementar delays entre transformaciones"
+                    ],
+                    correct: 1,
+                    explanation: "TIMERS (@TimerSpec) permiten programar callbacks que se ejecutan en el futuro basados en EVENT TIME o PROCESSING TIME. CASOS DE USO: 1) Limpiar estado antiguo después de X tiempo, 2) Emitir resultados parciales si no llegan más datos en Y minutos, 3) Implementar timeouts personalizados, 4) Ventanas personalizadas complejas. Ejemplo: timer.set(window.maxTimestamp().plus(Duration.hours(1))) para limpiar estado 1 hora después del fin de la ventana. REQUIERE Stateful Processing."
+                },
+                {
+                    question: "¿Cuál es la mejor práctica para testing de pipelines de Apache Beam?",
+                    options: [
+                        "Solo testing manual ejecutando el pipeline en Dataflow",
+                        "Usar TestPipeline, PAssert y DirectRunner para unit tests",
+                        "Testing no es posible en Beam debido a su naturaleza distribuida",
+                        "Solo integration tests en producción"
+                    ],
+                    correct: 1,
+                    explanation: "BEST PRACTICES: 1) UNIT TESTS: Usa TestPipeline (test framework de Beam) con DirectRunner (runner local), PAssert para validar outputs. 2) Separa lógica de negocio en DoFns testables independientemente. 3) INTEGRATION TESTS: Ejecuta en DirectRunner o Dataflow con datos de prueba. 4) Usa PAssert.that(output).containsInAnyOrder(...) para validar resultados. Beam está diseñado para ser TESTEABLE - el código es el mismo para local y producción (portabilidad de runners)."
+                }
+            ];
+
+            document.addEventListener('DOMContentLoaded', () => {
+                new Quiz('apachebeamQuiz', apachebeamQuestions);
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Cloud Pub/Sub: Capa de ingesta y desacoplamiento para pipeline de streaming serverless en GCP.">
+        <meta name="keywords" content="Cloud Pub/Sub, GCP, Mensajería, Topic, Subscription, Streaming">
+        <title>Detalle | Cloud Pub/Sub</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+
+        <header class="hero">
+            <div class="container">
+                <h1 class="project-title">Pipeline Serverless de Streaming en
+                    GCP</h1>
+                <p class="subtitle">Análisis de Transacciones en Tiempo Real
+                    (Latencia Baja)</p>
+            </div>
+        </header>
+
+        <nav class="tool-nav">
+            <div class="container">
+                <a href="index.html" class="nav-item"
+                    data-tool="overview">Visión General</a>
+                <a href="pubsub.html" class="nav-item active"
+                    data-tool="pubsub">Cloud Pub/Sub</a>
+                <a href="dataflow.html" class="nav-item"
+                    data-tool="dataflow">Cloud Dataflow</a>
+                <a href="bigquery.html" class="nav-item"
+                    data-tool="bigquery">BigQuery</a>
+                <a href="apachebeam.html" class="nav-item"
+                    data-tool="apachebeam">Apache Beam (Python)</a>
+            </div>
+        </nav>
+
+        <main class="container main-content">
+            <section class="section tool-detail-content">
+                <h2>Cloud Pub/Sub: Capa de Ingesta y Desacoplamiento</h2>
+                <p>Cloud Pub/Sub es un servicio de mensajería asíncrona y
+                    globalmente distribuido que implementa el patrón de
+                    <strong>Publicador/Suscriptor</strong>. En este proyecto, actúa como el
+                    <strong>puente resiliente</strong> entre la fuente de datos (el
+                    simulador) y el procesador (Dataflow).</p>
+
+                <h3>Conceptos Clave Aplicados</h3>
+
+                <div class="component-list">
+                    <ul>
+                        <li>
+                            <h4>Topic (Tema)</h4>
+                            <p>El canal donde el script de simulación (el
+                                <strong>Publicador</strong>) envía cada mensaje de
+                                transacción JSON. Se usó el Topic
+                                <code>transactions-topic</code>.</p>
+                        </li>
+                        <li>
+                            <h4>Subscription (Suscripción)</h4>
+                            <p>El punto lógico al que Dataflow se conecta para
+                                leer los mensajes. La Suscripción
+                                <code>dataflow-subscription</code> garantiza la
+                                entrega de mensajes de
+                                <strong>"al menos una vez"</strong>.</p>
+                        </li>
+                        <li>
+                            <h4>Desacoplamiento y Durabilidad</h4>
+                            <p>Su naturaleza *serverless* y su función de
+                                *buffer* permiten que Dataflow pueda fallar o
+                                recibir mantenimiento sin perder ni un solo
+                                mensaje, ya que Pub/Sub los retiene
+                                temporalmente.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <a href="https://cloud.google.com/pubsub" target="_blank" rel="noopener noreferrer"
+                    class="official-link">Documentación Oficial de Google Cloud
+                    Pub/Sub</a>
+            </section>
+
+            <!-- Quiz de Certificación -->
+            <section class="section quiz-container">
+                <h2 class="quiz-title">📝 Quiz de Certificación: Cloud Pub/Sub</h2>
+                <p class="quiz-intro">Pon a prueba tus conocimientos con preguntas tipo Professional Data Engineer</p>
+                <div id="pubsubQuiz"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Eduardo Villena Lozano | Ingeniería de Datos</p>
+        </footer>
+
+        <script src="js/main.js"></script>
+        <script src="js/quiz.js"></script>
+        <script>
+            // Preguntas específicas de Cloud Pub/Sub para Professional Data Engineer
+            const pubsubQuestions = [
+                {
+                    question: "Una empresa necesita procesar millones de mensajes por segundo desde dispositivos IoT. ¿Cuál es la garantía de entrega que Cloud Pub/Sub proporciona por defecto?",
+                    options: [
+                        "Exactamente una vez (exactly-once)",
+                        "Al menos una vez (at-least-once)",
+                        "Como máximo una vez (at-most-once)",
+                        "Sin garantía de entrega"
+                    ],
+                    correct: 1,
+                    explanation: "Cloud Pub/Sub garantiza entrega 'al menos una vez' por defecto. Esto significa que los mensajes pueden duplicarse, pero nunca se perderán. Para 'exactly-once', debes implementar lógica de deduplicación o usar Dataflow con exactly-once processing."
+                },
+                {
+                    question: "Estás diseñando un pipeline de datos en tiempo real. Necesitas que múltiples servicios procesen el mismo mensaje de forma independiente. ¿Cuál es la mejor configuración en Pub/Sub?",
+                    options: [
+                        "Un topic con múltiples subscriptions, cada una para un servicio diferente",
+                        "Múltiples topics, uno por cada servicio",
+                        "Un topic con una subscription compartida entre servicios",
+                        "Usar Cloud Functions para replicar mensajes"
+                    ],
+                    correct: 0,
+                    explanation: "La mejor práctica es crear UN topic con MÚLTIPLES subscriptions. Cada subscription recibe una copia de todos los mensajes del topic, permitiendo que diferentes servicios consuman los mismos datos de forma independiente. Este patrón de fan-out es fundamental en arquitecturas de streaming."
+                },
+                {
+                    question: "Tu aplicación está recibiendo mensajes de Pub/Sub, pero algunos mensajes tardan más en procesarse. ¿Qué mecanismo debes usar para evitar que estos mensajes se reenvíen mientras aún se están procesando?",
+                    options: [
+                        "Aumentar el retention period del topic",
+                        "Extender el acknowledgement deadline",
+                        "Usar message ordering",
+                        "Configurar dead letter topics"
+                    ],
+                    correct: 1,
+                    explanation: "Debes extender el 'acknowledgement deadline'. Por defecto es de 10 segundos, pero puedes extenderlo hasta 600 segundos. Esto le indica a Pub/Sub que el mensaje aún está siendo procesado y no debe reenviarse. Esto se hace con el método 'modify_ack_deadline' en el SDK."
+                },
+                {
+                    question: "¿Cuál es el tiempo máximo de retención de mensajes en Cloud Pub/Sub?",
+                    options: [
+                        "1 día",
+                        "7 días",
+                        "31 días",
+                        "Ilimitado con snapshots"
+                    ],
+                    correct: 1,
+                    explanation: "Cloud Pub/Sub retiene mensajes no confirmados por un máximo de 7 días. Después de este período, los mensajes se eliminan automáticamente. Para retención a largo plazo, debes usar Pub/Sub snapshots o exportar a Cloud Storage/BigQuery."
+                },
+                {
+                    question: "Necesitas garantizar el orden de procesamiento de mensajes relacionados (ej: transacciones del mismo usuario). ¿Qué característica de Pub/Sub debes habilitar?",
+                    options: [
+                        "Message deduplication",
+                        "Message filtering",
+                        "Message ordering con ordering keys",
+                        "Priority queuing"
+                    ],
+                    correct: 2,
+                    explanation: "Debes habilitar 'message ordering' y usar 'ordering keys'. Los mensajes con la misma ordering key se entregarán en orden. IMPORTANTE: Esto reduce el paralelismo y puede afectar el throughput. Solo úsalo cuando el orden sea crítico. Además, debes procesar mensajes de la misma ordering key secuencialmente."
+                },
+                {
+                    question: "Tu aplicación procesa mensajes de Pub/Sub, pero ocasionalmente algunos mensajes no se procesan correctamente y se pierden. ¿Cuál es la mejor estrategia para manejar mensajes problemáticos?",
+                    options: [
+                        "Aumentar el acknowledgement deadline a su máximo",
+                        "Configurar un Dead Letter Topic con max delivery attempts",
+                        "Duplicar todas las subscriptions para redundancia",
+                        "Deshabilitar el acknowledgement automático"
+                    ],
+                    correct: 1,
+                    explanation: "La mejor práctica es configurar un Dead Letter Topic. Cuando un mensaje falla después de un número configurado de intentos de entrega (max_delivery_attempts), se mueve automáticamente al Dead Letter Topic en lugar de reintentarse infinitamente. Esto previene que mensajes problemáticos bloqueen el pipeline y permite análisis posterior de fallos. Configura tanto el Dead Letter Topic como la política de reintento (max_delivery_attempts y minimum/maximum backoff)."
+                },
+                {
+                    question: "¿Cuál es el límite máximo de throughput de publicación en un solo topic de Cloud Pub/Sub?",
+                    options: [
+                        "1 MB/s por topic",
+                        "10 MB/s por topic",
+                        "No hay límite fijo, escala automáticamente",
+                        "Depende del número de subscriptions"
+                    ],
+                    correct: 2,
+                    explanation: "Cloud Pub/Sub escala automáticamente sin límite fijo de throughput por topic. Puede manejar desde bytes hasta petabytes por segundo. El servicio particiona automáticamente los topics según la carga. Sin embargo, hay límites de cuota por proyecto (ej: 10,000 mensajes/segundo para ciertas operaciones por defecto, pero se puede aumentar). Para casos de uso extremadamente altos, Google recomienda usar múltiples topics para distribución de carga."
+                },
+                {
+                    question: "Estás migrando de un sistema on-premise con colas FIFO estrictas a Pub/Sub. ¿Qué consideración arquitectónica es más importante?",
+                    options: [
+                        "Pub/Sub garantiza FIFO global por defecto, no hay cambios necesarios",
+                        "Debes habilitar message ordering y redeseñar para tolerar latencia adicional",
+                        "Pub/Sub no soporta orden, debes usar Cloud Tasks en su lugar",
+                        "Solo funciona FIFO si usas una única subscription"
+                    ],
+                    correct: 1,
+                    explanation: "Pub/Sub NO garantiza orden global por defecto (optimizado para throughput). Para orden FIFO: 1) Habilita 'enable_message_ordering' en subscription, 2) Publica mensajes con 'ordering_key', 3) Mensajes con la MISMA ordering_key se entregarán en orden. IMPORTANTE: Esto reduce paralelismo (mensajes de misma key se procesan secuencialmente), aumenta latencia, y requiere manejo cuidadoso de errores (un fallo bloquea esa key). Evalúa si realmente necesitas orden estricto vs 'eventual consistency'."
+                },
+                {
+                    question: "¿Cuándo deberías usar 'Pub/Sub Lite' en lugar de 'Pub/Sub estándar'?",
+                    options: [
+                        "Cuando necesitas latencia ultra-baja (sub-milisegundo)",
+                        "Cuando el costo es crítico y puedes manejar disponibilidad zonal",
+                        "Para mensajes mayores a 10 MB",
+                        "Solo para aplicaciones en GKE"
+                    ],
+                    correct: 1,
+                    explanation: "Pub/Sub Lite es hasta 90% más económico que Pub/Sub estándar, PERO: 1) Solo disponibilidad ZONAL (no regional/global), 2) Debes pre-provisionar capacidad (throughput y almacenamiento), 3) Menos features (no snapshots, no dead letter topics, no seeks). Úsalo cuando: cost es crítico, tu workload es predecible, y puedes aceptar disponibilidad zonal. Para producción crítica, usa Pub/Sub estándar con disponibilidad regional."
+                },
+                {
+                    question: "Tu pipeline consume mensajes de Pub/Sub, pero durante picos de tráfico, los mensajes se acumulan y el lag aumenta. ¿Cuál es la causa más probable y la solución?",
+                    options: [
+                        "Pub/Sub tiene límites de throughput, debes crear más topics",
+                        "Tu consumidor no escala adecuadamente, debes aumentar el paralelismo/workers",
+                        "Los mensajes son demasiado grandes, debes comprimirlos",
+                        "La subscription tiene un acknowledgement deadline muy corto"
+                    ],
+                    correct: 1,
+                    explanation: "El problema está en el CONSUMIDOR, no en Pub/Sub. Pub/Sub escala automáticamente, pero tu aplicación debe procesar mensajes lo suficientemente rápido. Soluciones: 1) Aumentar número de workers/pods en tu aplicación, 2) Aumentar el 'max_messages' en pull requests (procesar mensajes en batch), 3) Optimizar la lógica de procesamiento, 4) Usar streaming pull en lugar de sync pull para mayor eficiencia. Monitorea 'oldest_unacked_message_age' para detectar lag."
+                }
+            ];
+
+            // Inicializar quiz cuando el DOM esté listo
+            document.addEventListener('DOMContentLoaded', () => {
+                new Quiz('pubsubQuiz', pubsubQuestions);
+            });
+        </script>
+    </body>
+</html>

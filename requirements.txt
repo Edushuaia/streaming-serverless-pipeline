@@ -1,0 +1,59 @@
+# ==============================================================================
+# REQUIREMENTS.TXT - Dependencias del Pipeline de Streaming Serverless
+# ==============================================================================
+#
+# Instalación:
+#   pip install -r requirements.txt
+#
+# Para desarrollo:
+#   pip install -r requirements.txt -r requirements-dev.txt
+#
+# ==============================================================================
+
+# ====================
+# CORE DEPENDENCIES
+# ====================
+
+# Apache Beam con soporte para GCP
+# Nota: Apache Beam 2.53.0 no es compatible con Python 3.13+
+# Usando versión 2.59.0+ que soporta Python 3.13
+apache-beam[gcp]==2.59.0
+
+# Google Cloud Client Libraries
+google-cloud-pubsub==2.18.4
+google-cloud-bigquery==3.13.0
+google-cloud-storage==2.13.0
+
+# ====================
+# CONFIGURATION
+# ====================
+
+# Gestión de variables de entorno
+python-dotenv==1.0.0
+
+# ====================
+# UTILITIES
+# ====================
+
+# Validación de datos (opcional pero recomendado)
+pydantic==2.5.0
+
+# Fecha y hora avanzado
+python-dateutil==2.8.2
+
+# ====================
+# TESTING (opcional)
+# ====================
+# Descomentar si se ejecutan tests localmente
+# pytest==7.4.3
+# pytest-cov==4.1.0
+# pytest-mock==3.12.0
+
+# ====================
+# DEVELOPMENT (opcional)
+# ====================
+# Descomentar para desarrollo local
+# black==23.11.0
+# flake8==6.1.0
+# mypy==1.7.1
+# isort==5.12.0

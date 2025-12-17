@@ -1,0 +1,186 @@
+# ==============================================================================
+# .gitignore para Pipeline Serverless de Streaming en GCP
+# ==============================================================================
+
+# ============================
+# Python
+# ============================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+test-results/
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# ============================
+# Google Cloud Platform
+# ============================
+# Service Account Keys (¡NUNCA COMMITEAR!)
+*.json
+!schema*.json
+!package*.json
+
+# GCP Credentials
+credentials.json
+service-account-key.json
+application_default_credentials.json
+gcloud-service-key.json
+
+# ============================
+# Environment Variables
+# ============================
+.env
+.env.local
+.env.*.local
+*.env
+
+# Pero mantener el ejemplo
+!.env.example
+
+# ============================
+# Logs
+# ============================
+*.log
+logs/
+*.log.*
+
+# ============================
+# Dataflow Staging
+# ============================
+# Estos archivos son temporales de Dataflow
+staging/
+temp/
+*.beam/
+
+# ============================
+# BigQuery
+# ============================
+# Archivos temporales de consultas
+*.bqsession
+bq-results/
+
+# ============================
+# Terraform (si se usa IaC)
+# ============================
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!example.tfvars
+
+# ============================
+# Docker
+# ============================
+*.dockerignore
+
+# ============================
+# Sistema Operativo
+# ============================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# ============================
+# Archivos de Backup
+# ============================
+*.bak
+*.backup
+*.tmp
+*.temp
+
+# ============================
+# Configuraciones Locales
+# ============================
+config.local.py
+local_settings.py
+
+# ============================
+# Secrets Management
+# ============================
+secrets/
+.secrets/
+
+# ============================
+# Node (si se usa para frontend)
+# ============================
+node_modules/
+package-lock.json
+yarn.lock
+
+# ============================
+# Documentación Generada
+# ============================
+docs/_build/
+site/

@@ -1,0 +1,47 @@
+# ==============================================================================
+# REQUIREMENTS-DEV.TXT - Dependencias de Desarrollo
+# ==============================================================================
+#
+# Instalación:
+#   pip install -r requirements.txt -r requirements-dev.txt
+#
+# ==============================================================================
+
+# ====================
+# TESTING
+# ====================
+pytest==7.4.3
+pytest-cov==4.1.0
+pytest-mock==3.12.0
+pytest-timeout==2.2.0
+
+# ====================
+# CODE QUALITY
+# ====================
+# Formateo de código
+black==23.11.0
+isort==5.12.0
+
+# Linting
+flake8==6.1.0
+pylint==3.0.3
+
+# Type checking
+mypy==1.7.1
+
+# ====================
+# DOCUMENTATION
+# ====================
+# Generación de documentación
+sphinx==7.2.6
+sphinx-rtd-theme==2.0.0
+
+# ====================
+# UTILITIES
+# ====================
+# Pre-commit hooks
+pre-commit==3.5.0
+
+# Jupyter para notebooks de análisis
+jupyter==1.0.0
+ipython==8.18.1
