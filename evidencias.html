@@ -65,6 +65,11 @@
             object-fit: cover;
             cursor: pointer;
             border-bottom: 2px solid #667eea;
+            transition: transform 0.4s ease;
+        }
+
+        .evidencia-image:hover {
+            transform: scale(1.05);
         }
 
         .evidencia-info {
@@ -172,6 +177,112 @@
 
         .back-button:hover {
             background: #764ba2;
+        }
+
+        /* Badges tecnológicos */
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: #f7fafc;
+            border-radius: 8px;
+        }
+
+        .tech-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #2d3748;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .tech-badge:nth-child(1) { animation-delay: 0.1s; }
+        .tech-badge:nth-child(2) { animation-delay: 0.2s; }
+        .tech-badge:nth-child(3) { animation-delay: 0.3s; }
+        .tech-badge:nth-child(4) { animation-delay: 0.4s; }
+        .tech-badge:nth-child(5) { animation-delay: 0.5s; }
+        .tech-badge:nth-child(6) { animation-delay: 0.6s; }
+        .tech-badge:nth-child(7) { animation-delay: 0.7s; }
+        .tech-badge:nth-child(8) { animation-delay: 0.8s; }
+
+        .tech-badge:hover {
+            transform: translateY(-3px);
+            border-color: #667eea;
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.2);
+        }
+
+        .tech-badge span {
+            font-size: 1.2em;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Botón GitHub destacado */
+        .github-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #24292e 0%, #000000 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1em;
+            font-weight: 600;
+            margin: 2rem 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .github-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .github-button svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        .github-section {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .github-section h2 {
+            color: white;
+            margin: 0 0 1rem 0;
+            font-size: 1.5em;
+        }
+
+        .github-section p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0 0 1.5rem 0;
+            font-size: 0.95em;
         }
 
         /* Navegación flotante */
@@ -339,6 +450,34 @@
         <div class="evidencias-header">
             <h1>📊 Evidencias del Proyecto</h1>
             <p>Streaming Serverless Pipeline en Google Cloud Platform</p>
+        </div>
+
+        <!-- Badges Tecnológicos -->
+        <div class="tech-badges">
+            <div class="tech-badge">
+                <span>☁️</span> Google Cloud Platform
+            </div>
+            <div class="tech-badge">
+                <span>📨</span> Cloud Pub/Sub
+            </div>
+            <div class="tech-badge">
+                <span>🌊</span> Cloud Dataflow
+            </div>
+            <div class="tech-badge">
+                <span>🔷</span> Apache Beam 2.70
+            </div>
+            <div class="tech-badge">
+                <span>📊</span> BigQuery
+            </div>
+            <div class="tech-badge">
+                <span>🐍</span> Python 3.13
+            </div>
+            <div class="tech-badge">
+                <span>🧪</span> pytest
+            </div>
+            <div class="tech-badge">
+                <span>📦</span> Cloud Storage
+            </div>
         </div>
 
         <!-- Navegación flotante -->
@@ -593,6 +732,18 @@
             });
         });
     </script>
+
+    <!-- Sección GitHub -->
+    <div class="github-section">
+        <h2>🚀 Explora el Código Completo</h2>
+        <p>Todo el código fuente, configuraciones y documentación están disponibles en GitHub</p>
+        <a href="https://github.com/Edushuaia/streaming-serverless-pipeline" target="_blank" class="github-button">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+            Ver Proyecto en GitHub
+        </a>
+    </div>
 
     <footer style="text-align: center; padding: 2rem; background: #f7fafc; margin-top: 3rem; border-top: 2px solid #e2e8f0;">
         <p style="color: #718096; margin: 0;">&copy; 2025 Eduardo Villena Lozano | Ingeniería de Datos</p>
