@@ -1,26 +1,49 @@
-# Pipeline Serverless de Streaming en GCP
+# 🎓 Pipeline Serverless de Streaming en GCP - Proyecto Educativo
 
 [![GCP](https://img.shields.io/badge/Google%20Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)](https://cloud.google.com/)
 [![Apache Beam](https://img.shields.io/badge/Apache%20Beam-FF6F00?style=for-the-badge&logo=apache&logoColor=white)](https://beam.apache.org/)
 [![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Tests](https://img.shields.io/badge/Tests-Passing-success?style=for-the-badge)](test_pipeline.py)
-[![Code Style](https://img.shields.io/badge/Code%20Style-Black-000000?style=for-the-badge)](https://github.com/psf/black)
+[![Educational](https://img.shields.io/badge/Purpose-Educational-blue?style=for-the-badge)](README.md)
+
+## 📚 Contexto Educativo
+
+Proyecto de investigación y aprendizaje que explora cómo las arquitecturas serverless pueden democratizar el procesamiento de datos científicos en tiempo real. Diseñado como recurso educativo para estudiantes e investigadores interesados en computación distribuida, procesamiento de datos a gran escala y tecnologías cloud.
+
+### 🔬 Motivación Científico-Tecnológica
+
+En entornos de investigación científica (sensores IoT, telescopios, estaciones meteorológicas, aceleradores de partículas), los datos llegan de forma continua e impredecible. Este proyecto explora soluciones prácticas y económicas para:
+
+- Procesamiento de telemetría en tiempo real
+- Análisis de datos experimentales con baja latencia
+- Sistemas de monitoreo ambiental
+- Alertas tempranas en investigación
+
+### 🎯 Desafío Investigado
+
+**¿Cómo procesar flujos impredecibles de datos científicos con baja latencia, sin infraestructura fija ni costos operativos elevados?**
 
 ## 📋 Descripción
 
-Pipeline de procesamiento de datos en tiempo real completamente serverless que analiza flujos de transacciones financieras utilizando servicios gestionados de Google Cloud Platform. El sistema procesa miles de transacciones por segundo, las agrega en ventanas de tiempo de 30 segundos y las almacena para análisis posterior.
+Pipeline de procesamiento de datos en tiempo real completamente serverless que demuestra principios de computación distribuida aplicados a flujos de datos científicos. El sistema procesa miles de eventos por segundo, los agrega en ventanas temporales y los almacena para análisis posterior.
 
-**Características principales:**
+**Características Educativas:**
+
+- ✅ **Código abierto documentado** para aprendizaje
+- ✅ **Arquitectura replicable** para proyectos académicos  
+- ✅ **Patrones de diseño** aplicables a datos científicos
+- ✅ **Buenas prácticas** de ingeniería de software
+- ✅ **Testing riguroso** con cobertura > 60%
+- ✅ **Documentación completa** con sitio web interactivo
+
+**Capacidades Técnicas:**
 
 - ✅ **Procesamiento en tiempo real** con latencia < 5 segundos
-- ✅ **Autoescalado automático** basado en carga
+- ✅ **Autoescalado automático** basado en carga (0 → N workers)
 - ✅ **Alta disponibilidad** sin gestión de infraestructura
-- ✅ **Agregación por ventanas de tiempo** (Fixed Windows)
+- ✅ **Agregación por ventanas de tiempo** (Fixed Windows de 30s)
 - ✅ **Tolerancia a fallos** con manejo robusto de errores
 - ✅ **Logging estructurado** para monitoreo y debugging
-- ✅ **Tests unitarios** con cobertura > 80%
-- ✅ **Configuración centralizada** desde variables de entorno
-- ✅ **Métricas de Beam** para observabilidad
 
 ## 🏗️ Arquitectura
 
