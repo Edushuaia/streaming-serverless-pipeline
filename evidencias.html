@@ -99,6 +99,94 @@
             margin: 0.3rem 0.2rem 0 0;
         }
 
+        /* Diagrama de Flujo */
+        .implementation-flow {
+            margin: 2rem 0;
+        }
+
+        .flow-diagram {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .flow-diagram svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .flow-phase {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .flow-phase:hover rect {
+            filter: brightness(1.05);
+        }
+
+        .flow-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #f7fafc;
+            border-radius: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9em;
+            color: #2d3748;
+        }
+
+        .legend-color {
+            width: 30px;
+            height: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .legend-color.planning {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .legend-color.development {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+        }
+
+        .legend-color.infrastructure {
+            background: linear-gradient(135deg, #ed8936, #dd6b20);
+        }
+
+        .legend-color.deployment {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+        }
+
+        .legend-color.testing {
+            background: #9f7aea;
+        }
+
+        .legend-color.documentation {
+            background: #f56565;
+        }
+
+        @media (max-width: 768px) {
+            .flow-diagram {
+                padding: 1rem;
+            }
+            
+            .flow-legend {
+                gap: 1rem;
+            }
+        }
+
         /* Lightbox Modal */
         .lightbox {
             display: none;
@@ -508,6 +596,278 @@
                 <div class="stat-card">
                     <div class="stat-number">66%</div>
                     <div class="stat-label">Cobertura de Código</div>
+                </div>
+            </div>
+
+            <!-- Diagrama de Flujo de Implementación -->
+            <div class="implementation-flow">
+                <h2 class="section-title">🔄 Proceso de Implementación</h2>
+                <div class="flow-diagram">
+                    <svg viewBox="0 0 1000 900" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="gradPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                            </linearGradient>
+                            <linearGradient id="gradSuccess" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#48bb78;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#38a169;stop-opacity:1" />
+                            </linearGradient>
+                            <linearGradient id="gradWarning" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#ed8936;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#dd6b20;stop-opacity:1" />
+                            </linearGradient>
+                            <linearGradient id="gradInfo" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#4299e1;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#3182ce;stop-opacity:1" />
+                            </linearGradient>
+                            <filter id="shadow">
+                                <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.25"/>
+                            </filter>
+                        </defs>
+
+                        <!-- Fase 1: Planificación -->
+                        <g class="flow-phase">
+                            <rect x="30" y="20" width="940" height="75" rx="8" fill="#f7fafc" stroke="#667eea" stroke-width="2" filter="url(#shadow)"/>
+                            <text x="500" y="42" font-size="15" font-weight="bold" text-anchor="middle" fill="#2d3748">FASE 1: Planificación</text>
+                            
+                            <rect x="60" y="55" width="180" height="30" rx="6" fill="url(#gradPrimary)" filter="url(#shadow)"/>
+                            <text x="150" y="75" font-size="11" font-weight="600" text-anchor="middle" fill="white">📋 Análisis</text>
+
+                            <rect x="270" y="55" width="180" height="30" rx="6" fill="url(#gradPrimary)" filter="url(#shadow)"/>
+                            <text x="360" y="75" font-size="11" font-weight="600" text-anchor="middle" fill="white">🏗️ Arquitectura</text>
+
+                            <rect x="480" y="55" width="180" height="30" rx="6" fill="url(#gradPrimary)" filter="url(#shadow)"/>
+                            <text x="570" y="75" font-size="11" font-weight="600" text-anchor="middle" fill="white">📊 Servicios GCP</text>
+
+                            <rect x="690" y="55" width="150" height="30" rx="6" fill="url(#gradPrimary)" filter="url(#shadow)"/>
+                            <text x="765" y="75" font-size="11" font-weight="600" text-anchor="middle" fill="white">📝 Docs</text>
+                        </g>
+
+                        <!-- Flecha -->
+                        <path d="M 500 95 L 500 120" stroke="#667eea" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                        <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                            <polygon points="0 0, 8 4, 0 8" fill="#667eea"/>
+                        </marker>
+
+                        <!-- Fase 2: Desarrollo -->
+                        <g class="flow-phase">
+                            <rect x="30" y="125" width="940" height="85" rx="8" fill="#f7fafc" stroke="#4299e1" stroke-width="2" filter="url(#shadow)"/>
+                            <text x="500" y="147" font-size="15" font-weight="bold" text-anchor="middle" fill="#2d3748">FASE 2: Desarrollo</text>
+                            
+                            <rect x="80" y="160" width="170" height="38" rx="6" fill="url(#gradInfo)" filter="url(#shadow)"/>
+                            <text x="165" y="177" font-size="10" font-weight="600" text-anchor="middle" fill="white">🐍 Apache Beam</text>
+                            <text x="165" y="190" font-size="9" text-anchor="middle" fill="white">ARM64 nativo</text>
+
+                            <rect x="280" y="160" width="170" height="38" rx="6" fill="url(#gradInfo)" filter="url(#shadow)"/>
+                            <text x="365" y="177" font-size="10" font-weight="600" text-anchor="middle" fill="white">⚙️ Pipeline</text>
+                            <text x="365" y="190" font-size="9" text-anchor="middle" fill="white">dataflow_pipeline.py</text>
+
+                            <rect x="480" y="160" width="170" height="38" rx="6" fill="url(#gradInfo)" filter="url(#shadow)"/>
+                            <text x="565" y="177" font-size="10" font-weight="600" text-anchor="middle" fill="white">📨 Simulador</text>
+                            <text x="565" y="190" font-size="9" text-anchor="middle" fill="white">publisher_simulator</text>
+
+                            <rect x="680" y="160" width="170" height="38" rx="6" fill="url(#gradInfo)" filter="url(#shadow)"/>
+                            <text x="765" y="177" font-size="10" font-weight="600" text-anchor="middle" fill="white">🧪 Tests</text>
+                            <text x="765" y="190" font-size="9" text-anchor="middle" fill="white">14 tests, 66% cov</text>
+                        </g>
+
+                        <!-- Flecha -->
+                        <path d="M 500 210 L 500 235" stroke="#4299e1" stroke-width="2" fill="none" marker-end="url(#arrowhead2)"/>
+                        <marker id="arrowhead2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                            <polygon points="0 0, 8 4, 0 8" fill="#4299e1"/>
+                        </marker>
+
+                        <!-- Fase 3: Infraestructura -->
+                        <g class="flow-phase">
+                            <rect x="30" y="240" width="940" height="95" rx="8" fill="#f7fafc" stroke="#ed8936" stroke-width="2" filter="url(#shadow)"/>
+                            <text x="500" y="262" font-size="15" font-weight="bold" text-anchor="middle" fill="#2d3748">FASE 3: Infraestructura GCP</text>
+                            
+                            <g transform="translate(60, 275)">
+                                <rect width="140" height="50" rx="6" fill="url(#gradWarning)" filter="url(#shadow)"/>
+                                <text x="70" y="18" font-size="10" font-weight="600" text-anchor="middle" fill="white">☁️ Pub/Sub</text>
+                                <text x="70" y="32" font-size="8" text-anchor="middle" fill="white">Topic + Sub</text>
+                                <text x="70" y="43" font-size="7" text-anchor="middle" fill="white" opacity="0.9">Mensajería</text>
+                            </g>
+
+                            <g transform="translate(230, 275)">
+                                <rect width="140" height="50" rx="6" fill="url(#gradWarning)" filter="url(#shadow)"/>
+                                <text x="70" y="18" font-size="10" font-weight="600" text-anchor="middle" fill="white">📊 BigQuery</text>
+                                <text x="70" y="32" font-size="8" text-anchor="middle" fill="white">Dataset + Tabla</text>
+                                <text x="70" y="43" font-size="7" text-anchor="middle" fill="white" opacity="0.9">Warehouse</text>
+                            </g>
+
+                            <g transform="translate(400, 275)">
+                                <rect width="140" height="50" rx="6" fill="url(#gradWarning)" filter="url(#shadow)"/>
+                                <text x="70" y="18" font-size="10" font-weight="600" text-anchor="middle" fill="white">📦 Storage</text>
+                                <text x="70" y="32" font-size="8" text-anchor="middle" fill="white">Buckets</text>
+                                <text x="70" y="43" font-size="7" text-anchor="middle" fill="white" opacity="0.9">Staging/Temp</text>
+                            </g>
+
+                            <g transform="translate(570, 275)">
+                                <rect width="140" height="50" rx="6" fill="url(#gradWarning)" filter="url(#shadow)"/>
+                                <text x="70" y="18" font-size="10" font-weight="600" text-anchor="middle" fill="white">🔑 IAM</text>
+                                <text x="70" y="32" font-size="8" text-anchor="middle" fill="white">Permisos</text>
+                                <text x="70" y="43" font-size="7" text-anchor="middle" fill="white" opacity="0.9">Seguridad</text>
+                            </g>
+
+                            <g transform="translate(740, 275)">
+                                <rect width="140" height="50" rx="6" fill="url(#gradWarning)" filter="url(#shadow)"/>
+                                <text x="70" y="18" font-size="10" font-weight="600" text-anchor="middle" fill="white">🔧 APIs</text>
+                                <text x="70" y="32" font-size="8" text-anchor="middle" fill="white">Habilitadas</text>
+                                <text x="70" y="43" font-size="7" text-anchor="middle" fill="white" opacity="0.9">Servicios</text>
+                            </g>
+                        </g>
+
+                        <!-- Flecha -->
+                        <path d="M 500 335 L 500 360" stroke="#ed8936" stroke-width="2" fill="none" marker-end="url(#arrowhead3)"/>
+                        <marker id="arrowhead3" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                            <polygon points="0 0, 8 4, 0 8" fill="#ed8936"/>
+                        </marker>
+
+                        <!-- Fase 4: Despliegue -->
+                        <g class="flow-phase">
+                            <rect x="30" y="365" width="940" height="80" rx="8" fill="#f7fafc" stroke="#48bb78" stroke-width="2" filter="url(#shadow)"/>
+                            <text x="500" y="387" font-size="15" font-weight="bold" text-anchor="middle" fill="#2d3748">FASE 4: Despliegue</text>
+                            
+                            <rect x="100" y="400" width="220" height="35" rx="6" fill="url(#gradSuccess)" filter="url(#shadow)"/>
+                            <text x="210" y="417" font-size="11" font-weight="600" text-anchor="middle" fill="white">🚀 Dataflow</text>
+                            <text x="210" y="429" font-size="8" text-anchor="middle" fill="white">Autoescalado</text>
+
+                            <rect x="360" y="400" width="220" height="35" rx="6" fill="url(#gradSuccess)" filter="url(#shadow)"/>
+                            <text x="470" y="417" font-size="11" font-weight="600" text-anchor="middle" fill="white">📤 Publicación</text>
+                            <text x="470" y="429" font-size="8" text-anchor="middle" fill="white">23K+ mensajes</text>
+
+                            <rect x="620" y="400" width="220" height="35" rx="6" fill="url(#gradSuccess)" filter="url(#shadow)"/>
+                            <text x="730" y="417" font-size="11" font-weight="600" text-anchor="middle" fill="white">📊 Procesamiento</text>
+                            <text x="730" y="429" font-size="8" text-anchor="middle" fill="white">Ventanas 30s</text>
+                        </g>
+
+                        <!-- Flecha -->
+                        <path d="M 500 445 L 500 470" stroke="#48bb78" stroke-width="2" fill="none" marker-end="url(#arrowhead4)"/>
+                        <marker id="arrowhead4" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                            <polygon points="0 0, 8 4, 0 8" fill="#48bb78"/>
+                        </marker>
+
+                        <!-- Fase 5: Validación -->
+                        <g class="flow-phase">
+                            <rect x="30" y="475" width="940" height="70" rx="8" fill="#f7fafc" stroke="#9f7aea" stroke-width="2" filter="url(#shadow)"/>
+                            <text x="500" y="497" font-size="15" font-weight="bold" text-anchor="middle" fill="#2d3748">FASE 5: Validación</text>
+                            
+                            <rect x="80" y="510" width="180" height="25" rx="6" fill="#9f7aea" filter="url(#shadow)"/>
+                            <text x="170" y="525" font-size="10" font-weight="600" text-anchor="middle" fill="white">✅ Tests (14/14)</text>
+
+                            <rect x="290" y="510" width="180" height="25" rx="6" fill="#9f7aea" filter="url(#shadow)"/>
+                            <text x="380" y="525" font-size="10" font-weight="600" text-anchor="middle" fill="white">📊 Cobertura 66%</text>
+
+                            <rect x="500" y="510" width="180" height="25" rx="6" fill="#9f7aea" filter="url(#shadow)"/>
+                            <text x="590" y="525" font-size="10" font-weight="600" text-anchor="middle" fill="white">🔍 BigQuery</text>
+
+                            <rect x="710" y="510" width="150" height="25" rx="6" fill="#9f7aea" filter="url(#shadow)"/>
+                            <text x="785" y="525" font-size="10" font-weight="600" text-anchor="middle" fill="white">📈 Métricas</text>
+                        </g>
+
+                        <!-- Flecha -->
+                        <path d="M 500 545 L 500 570" stroke="#9f7aea" stroke-width="2" fill="none" marker-end="url(#arrowhead5)"/>
+                        <marker id="arrowhead5" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                            <polygon points="0 0, 8 4, 0 8" fill="#9f7aea"/>
+                        </marker>
+
+                        <!-- Fase 6: Documentación -->
+                        <g class="flow-phase">
+                            <rect x="30" y="575" width="940" height="95" rx="8" fill="#f7fafc" stroke="#f56565" stroke-width="2" filter="url(#shadow)"/>
+                            <text x="500" y="597" font-size="15" font-weight="bold" text-anchor="middle" fill="#2d3748">FASE 6: Documentación</text>
+                            
+                            <g transform="translate(60, 610)">
+                                <rect width="130" height="50" rx="6" fill="#f56565" filter="url(#shadow)"/>
+                                <text x="65" y="18" font-size="9" font-weight="600" text-anchor="middle" fill="white">📸 Evidencias</text>
+                                <text x="65" y="30" font-size="8" text-anchor="middle" fill="white">9 capturas</text>
+                                <text x="65" y="42" font-size="7" text-anchor="middle" fill="white" opacity="0.9">Galería</text>
+                            </g>
+
+                            <g transform="translate(220, 610)">
+                                <rect width="130" height="50" rx="6" fill="#f56565" filter="url(#shadow)"/>
+                                <text x="65" y="18" font-size="9" font-weight="600" text-anchor="middle" fill="white">📝 README</text>
+                                <text x="65" y="30" font-size="8" text-anchor="middle" fill="white">Completo</text>
+                                <text x="65" y="42" font-size="7" text-anchor="middle" fill="white" opacity="0.9">Guías</text>
+                            </g>
+
+                            <g transform="translate(380, 610)">
+                                <rect width="130" height="50" rx="6" fill="#f56565" filter="url(#shadow)"/>
+                                <text x="65" y="18" font-size="9" font-weight="600" text-anchor="middle" fill="white">🌐 Web</text>
+                                <text x="65" y="30" font-size="8" text-anchor="middle" fill="white">6 páginas</text>
+                                <text x="65" y="42" font-size="7" text-anchor="middle" fill="white" opacity="0.9">Quiz 40Q</text>
+                            </g>
+
+                            <g transform="translate(540, 610)">
+                                <rect width="130" height="50" rx="6" fill="#f56565" filter="url(#shadow)"/>
+                                <text x="65" y="18" font-size="9" font-weight="600" text-anchor="middle" fill="white">🐙 GitHub</text>
+                                <text x="65" y="30" font-size="8" text-anchor="middle" fill="white">Público</text>
+                                <text x="65" y="42" font-size="7" text-anchor="middle" fill="white" opacity="0.9">Open Source</text>
+                            </g>
+
+                            <g transform="translate(700, 610)">
+                                <rect width="130" height="50" rx="6" fill="#f56565" filter="url(#shadow)"/>
+                                <text x="65" y="18" font-size="9" font-weight="600" text-anchor="middle" fill="white">💼 LinkedIn</text>
+                                <text x="65" y="30" font-size="8" text-anchor="middle" fill="white">Portada</text>
+                                <text x="65" y="42" font-size="7" text-anchor="middle" fill="white" opacity="0.9">Portfolio</text>
+                            </g>
+                        </g>
+
+                        <!-- Flecha -->
+                        <path d="M 500 670 L 500 695" stroke="#f56565" stroke-width="2" fill="none" marker-end="url(#arrowhead6)"/>
+                        <marker id="arrowhead6" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                            <polygon points="0 0, 8 4, 0 8" fill="#f56565"/>
+                        </marker>
+
+                        <!-- Resultado Final -->
+                        <g class="flow-result">
+                            <rect x="150" y="700" width="700" height="110" rx="10" fill="url(#gradPrimary)" filter="url(#shadow)"/>
+                            <text x="500" y="730" font-size="18" font-weight="bold" text-anchor="middle" fill="white">🎓 PROYECTO COMPLETO</text>
+                            
+                            <text x="270" y="760" font-size="11" text-anchor="start" fill="white">✅ Pipeline serverless</text>
+                            <text x="270" y="775" font-size="11" text-anchor="start" fill="white">✅ Infraestructura GCP</text>
+                            <text x="270" y="790" font-size="11" text-anchor="start" fill="white">✅ Documentación completa</text>
+                            
+                            <text x="550" y="760" font-size="11" text-anchor="start" fill="white">✅ Testing 66%</text>
+                            <text x="550" y="775" font-size="11" text-anchor="start" fill="white">✅ Sitio educativo</text>
+                            <text x="550" y="790" font-size="11" text-anchor="start" fill="white">✅ Repositorio público</text>
+                        </g>
+
+                        <!-- Timeline lateral -->
+                        <text x="965" y="60" font-size="9" text-anchor="end" fill="#718096">Día 1-2</text>
+                        <text x="965" y="170" font-size="9" text-anchor="end" fill="#718096">Día 3-5</text>
+                        <text x="965" y="290" font-size="9" text-anchor="end" fill="#718096">Día 6-7</text>
+                        <text x="965" y="410" font-size="9" text-anchor="end" fill="#718096">Día 8-10</text>
+                        <text x="965" y="515" font-size="9" text-anchor="end" fill="#718096">Día 11</text>
+                        <text x="965" y="625" font-size="9" text-anchor="end" fill="#718096">Día 12-15</text>
+                    </svg>
+                </div>
+                <div class="flow-legend">
+                    <div class="legend-item">
+                        <div class="legend-color planning"></div>
+                        <span>Planificación</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color development"></div>
+                        <span>Desarrollo</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color infrastructure"></div>
+                        <span>Infraestructura</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color deployment"></div>
+                        <span>Despliegue</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color testing"></div>
+                        <span>Testing</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color documentation"></div>
+                        <span>Documentación</span>
+                    </div>
                 </div>
             </div>
 
