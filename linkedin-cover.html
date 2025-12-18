@@ -90,6 +90,7 @@
 
         .tech-item {
             background: rgba(255, 255, 255, 0.1);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             padding: 12px 16px;
             border-radius: 8px;
@@ -116,6 +117,7 @@
 
         .architecture-diagram {
             background: rgba(255, 255, 255, 0.05);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             border: 2px solid rgba(102, 126, 234, 0.3);
             border-radius: 12px;
@@ -172,6 +174,7 @@
 
         .stat-card {
             background: rgba(102, 126, 234, 0.15);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(102, 126, 234, 0.3);
             border-radius: 10px;
@@ -215,6 +218,7 @@
             bottom: 30px;
             right: 30px;
             background: rgba(255, 255, 255, 0.1);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
@@ -266,7 +270,7 @@
     </style>
 </head>
 <body>
-    <div style="display: flex; flex-direction: column; align-items: center;">
+    <div class="instructions-container">
         
         <!-- PORTADA PARA LINKEDIN -->
         <div class="linkedin-cover" id="linkedin-cover">
@@ -311,7 +315,7 @@
                             <div class="flow-box">
                                 <div class="flow-icon">📨</div>
                                 <div>Pub/Sub</div>
-                                <div style="font-size: 11px; margin-top: 5px; opacity: 0.8;">Ingesta</div>
+                                <div class="flow-subtitle">Ingesta</div>
                             </div>
                             
                             <div class="flow-arrow">→</div>
@@ -319,7 +323,7 @@
                             <div class="flow-box">
                                 <div class="flow-icon">⚙️</div>
                                 <div>Dataflow</div>
-                                <div style="font-size: 11px; margin-top: 5px; opacity: 0.8;">Procesamiento</div>
+                                <div class="flow-subtitle">Procesamiento</div>
                             </div>
                             
                             <div class="flow-arrow">→</div>
@@ -327,7 +331,7 @@
                             <div class="flow-box">
                                 <div class="flow-icon">📊</div>
                                 <div>BigQuery</div>
-                                <div style="font-size: 11px; margin-top: 5px; opacity: 0.8;">Analytics</div>
+                                <div class="flow-subtitle">Analytics</div>
                             </div>
                         </div>
                     </div>
@@ -372,7 +376,7 @@
                 
                 <li>
                     <strong>PASO 2: Acceder a LinkedIn</strong><br>
-                    • Ve a <a href="https://www.linkedin.com" target="_blank">linkedin.com</a><br>
+                    • Ve a <a href="https://www.linkedin.com" target="_blank" rel="noopener">linkedin.com</a><br>
                     • Inicia sesión en tu cuenta
                 </li>
                 
@@ -393,7 +397,8 @@
                     <strong>PASO 5: Escribir el texto</strong><br>
                     Copia y pega este texto (modificando según prefieras):<br><br>
                     
-                    <textarea readonly style="width: 100%; height: 400px; padding: 15px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit; font-size: 14px; line-height: 1.6; margin-top: 10px;">🎓 Proyecto Educativo: Pipeline de Streaming Serverless para Datos Científicos
+                    <label for="linkedin-text" class="linkedin-text-label">Texto para LinkedIn:</label>
+                    <textarea id="linkedin-text" readonly title="Texto para publicación de LinkedIn" class="linkedin-textarea">🎓 Proyecto Educativo: Pipeline de Streaming Serverless para Datos Científicos
 
 He desarrollado un proyecto educativo explorando arquitecturas serverless para el procesamiento de flujos de datos científicos en tiempo real, aplicando principios de computación distribuida y análisis de grandes volúmenes de datos.
 
@@ -458,9 +463,9 @@ En entornos de investigación científica (sensores IoT, telescopios, acelerador
                 </li>
             </ol>
             
-            <div style="margin-top: 30px; padding: 20px; background: #f7fafc; border-left: 4px solid #667eea; border-radius: 5px;">
-                <strong style="color: #667eea;">💡 Consejo Pro:</strong><br>
-                <span style="color: #4a5568;">
+            <div class="pro-tip-box">
+                <strong class="pro-tip-title">💡 Consejo Pro:</strong><br>
+                <span class="pro-tip-text">
                     Mejor momento para publicar: Martes-Jueves entre 8-10 AM o 5-6 PM (hora local).
                     Evita fines de semana si buscas máximo alcance profesional.
                 </span>

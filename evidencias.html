@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evidencias del Proyecto - Streaming Serverless Pipeline</title>
-    <link rel="stylesheet" href="css/style.css">
-    <style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Evidencias del Proyecto - Streaming Serverless Pipeline</title>
+        <link rel="stylesheet" href="css/style.css">
+        <style>
         .evidencias-container {
             max-width: 1600px;
             margin: 0 auto;
@@ -444,225 +444,255 @@
             }
         }
     </style>
-</head>
-<body>
-    <div class="evidencias-container" id="top">
-        <div class="evidencias-header">
-            <h1>📊 Evidencias del Proyecto Educativo</h1>
-            <p>Pipeline Serverless para Procesamiento de Datos Científicos en Tiempo Real</p>
+    </head>
+    <body>
+        <div class="evidencias-container" id="top">
+            <div class="evidencias-header">
+                <h1>📊 Evidencias del Proyecto Educativo</h1>
+                <p>Pipeline Serverless para Procesamiento de Datos Científicos
+                    en Tiempo Real</p>
+            </div>
+
+            <!-- Badges Tecnológicos -->
+            <div class="tech-badges">
+                <div class="tech-badge">
+                    <span>☁️</span> Google Cloud Platform
+                </div>
+                <div class="tech-badge">
+                    <span>📨</span> Cloud Pub/Sub
+                </div>
+                <div class="tech-badge">
+                    <span>🌊</span> Cloud Dataflow
+                </div>
+                <div class="tech-badge">
+                    <span>🔷</span> Apache Beam 2.70
+                </div>
+                <div class="tech-badge">
+                    <span>📊</span> BigQuery
+                </div>
+                <div class="tech-badge">
+                    <span>🐍</span> Python 3.13
+                </div>
+                <div class="tech-badge">
+                    <span>🧪</span> pytest
+                </div>
+                <div class="tech-badge">
+                    <span>📦</span> Cloud Storage
+                </div>
+            </div>
+
+            <!-- Navegación flotante -->
+            <nav class="floating-nav">
+                <a href="#top" data-tooltip="Inicio">🏠</a>
+                <a href="#infraestructura"
+                    data-tooltip="Infraestructura">🏗️</a>
+                <a href="#pipeline" data-tooltip="Pipeline">⚙️</a>
+                <a href="#resultados" data-tooltip="Resultados">📈</a>
+                <a href="#testing" data-tooltip="Testing">🧪</a>
+            </nav>
+
+            <!-- Estadísticas del Proyecto -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number">9</div>
+                    <div class="stat-label">Capturas de Pantalla</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">320+</div>
+                    <div class="stat-label">Mensajes Procesados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">14/14</div>
+                    <div class="stat-label">Tests Pasados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">66%</div>
+                    <div class="stat-label">Cobertura de Código</div>
+                </div>
+            </div>
+
+            <!-- Sección 1: Infraestructura -->
+            <h2 id="infraestructura" class="section-title">🏗️ Infraestructura
+                en GCP</h2>
+            <div class="evidencias-grid">
+                <div class="evidencia-card">
+                    <img src="img/evidencia-01-pubsub.png"
+                        alt="Cloud Pub/Sub Topic y Suscripción"
+                        class="evidencia-image"
+                        onclick="openLightbox(this.src)">
+                    <div class="evidencia-info">
+                        <h3>Cloud Pub/Sub</h3>
+                        <p>Topic <strong>transactions-topic</strong> y
+                            suscripción <strong>dataflow-subscription</strong>
+                            configurados para recibir y distribuir mensajes de
+                            transacciones en tiempo real.</p>
+                        <span class="evidencia-tag">Pub/Sub</span>
+                        <span class="evidencia-tag">Mensajería</span>
+                    </div>
+                </div>
+
+                <div class="evidencia-card">
+                    <img src="img/evidencia-02-bigquery.png"
+                        alt="BigQuery Dataset y Tabla"
+                        class="evidencia-image"
+                        onclick="openLightbox(this.src)">
+                    <div class="evidencia-info">
+                        <h3>BigQuery Dataset</h3>
+                        <p>Dataset <strong>streaming_data_warehouse_v2</strong>
+                            con tabla <strong>transaction_aggregates</strong>
+                            particionada por tiempo para almacenar
+                            agregaciones.</p>
+                        <span class="evidencia-tag">BigQuery</span>
+                        <span class="evidencia-tag">Data Warehouse</span>
+                    </div>
+                </div>
+
+                <div class="evidencia-card">
+                    <img src="img/evidencia-03-storage.png"
+                        alt="Cloud Storage Bucket"
+                        class="evidencia-image"
+                        onclick="openLightbox(this.src)">
+                    <div class="evidencia-info">
+                        <h3>Cloud Storage</h3>
+                        <p>Bucket
+                            <strong>streaming-serverless-dataflow-staging</strong>
+                            configurado para staging y archivos temporales del
+                            pipeline de Dataflow.</p>
+                        <span class="evidencia-tag">Cloud Storage</span>
+                        <span class="evidencia-tag">Staging</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección 2: Pipeline de Dataflow -->
+            <h2 id="pipeline" class="section-title">⚙️ Pipeline de Dataflow</h2>
+            <div class="evidencias-grid">
+                <div class="evidencia-card">
+                    <img src="img/evidencia-04-dataflow-graph.png"
+                        alt="Grafo del Pipeline Dataflow"
+                        class="evidencia-image"
+                        onclick="openLightbox(this.src)">
+                    <div class="evidencia-info">
+                        <h3>Grafo del Pipeline</h3>
+                        <p>Visualización del flujo de datos: lectura desde
+                            Pub/Sub → parsing JSON → ventanas temporales →
+                            agregación → escritura a BigQuery.</p>
+                        <span class="evidencia-tag">Dataflow</span>
+                        <span class="evidencia-tag">Apache Beam</span>
+                        <span class="evidencia-tag">Streaming</span>
+                    </div>
+                </div>
+
+                <div class="evidencia-card">
+                    <img src="img/evidencia-05-dataflow-metrics.png"
+                        alt="Métricas del Job Dataflow"
+                        class="evidencia-image"
+                        onclick="openLightbox(this.src)">
+                    <div class="evidencia-info">
+                        <h3>Métricas en Tiempo Real</h3>
+                        <p>Throughput, latencia, y elementos procesados por el
+                            job de Dataflow durante la ejecución del pipeline de
+                            streaming.</p>
+                        <span class="evidencia-tag">Métricas</span>
+                        <span class="evidencia-tag">Monitoreo</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección 3: Resultados y Monitoreo -->
+            <h2 id="resultados" class="section-title">📈 Resultados y
+                Monitoreo</h2>
+            <div class="evidencias-grid">
+                <div class="evidencia-card">
+                    <img src="img/evidencia-06-bigquery-results.png"
+                        alt="Resultados en BigQuery"
+                        class="evidencia-image"
+                        onclick="openLightbox(this.src)">
+                    <div class="evidencia-info">
+                        <h3>Datos Procesados</h3>
+                        <p>Consulta SQL mostrando agregaciones de transacciones
+                            por ventanas de 30 segundos: total de transacciones,
+                            sumas, promedios, máximos y mínimos.</p>
+                        <span class="evidencia-tag">BigQuery</span>
+                        <span class="evidencia-tag">Resultados</span>
+                        <span class="evidencia-tag">SQL</span>
+                    </div>
+                </div>
+
+                <div class="evidencia-card">
+                    <img src="img/evidencia-07-pubsub-metrics.png"
+                        alt="Métricas de Pub/Sub"
+                        class="evidencia-image"
+                        onclick="openLightbox(this.src)">
+                    <div class="evidencia-info">
+                        <h3>Métricas de Pub/Sub</h3>
+                        <p>Gráficas de mensajes publicados, entregados y
+                            throughput del sistema de mensajería en tiempo
+                            real.</p>
+                        <span class="evidencia-tag">Pub/Sub</span>
+                        <span class="evidencia-tag">Métricas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección 4: Testing y Calidad -->
+            <h2 id="testing" class="section-title">🧪 Testing y Calidad del
+                Código</h2>
+            <div class="evidencias-grid">
+                <div class="evidencia-card">
+                    <img src="img/evidencia-08-tests-coverage.png"
+                        alt="Tests y Cobertura"
+                        class="evidencia-image"
+                        onclick="openLightbox(this.src)">
+                    <div class="evidencia-info">
+                        <h3>Suite de Tests</h3>
+                        <p>14 tests unitarios pasados exitosamente con 66% de
+                            cobertura de código usando pytest y pytest-cov.</p>
+                        <span class="evidencia-tag">Testing</span>
+                        <span class="evidencia-tag">pytest</span>
+                        <span class="evidencia-tag">100% Pass</span>
+                    </div>
+                </div>
+
+                <div class="evidencia-card">
+                    <img src="img/evidencia-09-coverage-report.png"
+                        alt="Reporte de Cobertura"
+                        class="evidencia-image"
+                        onclick="openLightbox(this.src)">
+                    <div class="evidencia-info">
+                        <h3>Reporte de Cobertura</h3>
+                        <p>Análisis detallado línea por línea mostrando qué
+                            partes del código están cubiertas por los tests
+                            automatizados.</p>
+                        <span class="evidencia-tag">Coverage</span>
+                        <span class="evidencia-tag">Calidad</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="back-button-container">
+                <a href="index.html" class="back-button">← Volver al Inicio</a>
+            </div>
         </div>
 
-        <!-- Badges Tecnológicos -->
-        <div class="tech-badges">
-            <div class="tech-badge">
-                <span>☁️</span> Google Cloud Platform
-            </div>
-            <div class="tech-badge">
-                <span>📨</span> Cloud Pub/Sub
-            </div>
-            <div class="tech-badge">
-                <span>🌊</span> Cloud Dataflow
-            </div>
-            <div class="tech-badge">
-                <span>🔷</span> Apache Beam 2.70
-            </div>
-            <div class="tech-badge">
-                <span>📊</span> BigQuery
-            </div>
-            <div class="tech-badge">
-                <span>🐍</span> Python 3.13
-            </div>
-            <div class="tech-badge">
-                <span>🧪</span> pytest
-            </div>
-            <div class="tech-badge">
-                <span>📦</span> Cloud Storage
-            </div>
+        <!-- Lightbox Modal -->
+        <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+            <span class="lightbox-close"
+                onclick="closeLightbox()">&times;</span>
+            <button class="lightbox-nav lightbox-prev"
+                onclick="event.stopPropagation(); navigateLightbox(-1)">‹</button>
+            <img id="lightbox-img" class="lightbox-content" src
+                alt="Imagen ampliada" onclick="event.stopPropagation()">
+            <button class="lightbox-nav lightbox-next"
+                onclick="event.stopPropagation(); navigateLightbox(1)">›</button>
+            <div class="lightbox-counter" id="lightbox-counter"></div>
         </div>
 
-        <!-- Navegación flotante -->
-        <nav class="floating-nav">
-            <a href="#top" data-tooltip="Inicio">🏠</a>
-            <a href="#infraestructura" data-tooltip="Infraestructura">🏗️</a>
-            <a href="#pipeline" data-tooltip="Pipeline">⚙️</a>
-            <a href="#resultados" data-tooltip="Resultados">📈</a>
-            <a href="#testing" data-tooltip="Testing">🧪</a>
-        </nav>
+        <!-- Botón Scroll to Top -->
+        <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()"
+            title="Volver arriba">↑</button>
 
-        <!-- Estadísticas del Proyecto -->
-        <div class="stats-container">
-            <div class="stat-card">
-                <div class="stat-number">9</div>
-                <div class="stat-label">Capturas de Pantalla</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">320+</div>
-                <div class="stat-label">Mensajes Procesados</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">14/14</div>
-                <div class="stat-label">Tests Pasados</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">66%</div>
-                <div class="stat-label">Cobertura de Código</div>
-            </div>
-        </div>
-
-        <!-- Sección 1: Infraestructura -->
-        <h2 id="infraestructura" class="section-title">🏗️ Infraestructura en GCP</h2>
-        <div class="evidencias-grid">
-            <div class="evidencia-card">
-                <img src="img/evidencia-01-pubsub.png" 
-                     alt="Cloud Pub/Sub Topic y Suscripción" 
-                     class="evidencia-image"
-                     onclick="openLightbox(this.src)">
-                <div class="evidencia-info">
-                    <h3>Cloud Pub/Sub</h3>
-                    <p>Topic <strong>transactions-topic</strong> y suscripción <strong>dataflow-subscription</strong> configurados para recibir y distribuir mensajes de transacciones en tiempo real.</p>
-                    <span class="evidencia-tag">Pub/Sub</span>
-                    <span class="evidencia-tag">Mensajería</span>
-                </div>
-            </div>
-
-            <div class="evidencia-card">
-                <img src="img/evidencia-02-bigquery.png" 
-                     alt="BigQuery Dataset y Tabla" 
-                     class="evidencia-image"
-                     onclick="openLightbox(this.src)">
-                <div class="evidencia-info">
-                    <h3>BigQuery Dataset</h3>
-                    <p>Dataset <strong>streaming_data_warehouse_v2</strong> con tabla <strong>transaction_aggregates</strong> particionada por tiempo para almacenar agregaciones.</p>
-                    <span class="evidencia-tag">BigQuery</span>
-                    <span class="evidencia-tag">Data Warehouse</span>
-                </div>
-            </div>
-
-            <div class="evidencia-card">
-                <img src="img/evidencia-03-storage.png" 
-                     alt="Cloud Storage Bucket" 
-                     class="evidencia-image"
-                     onclick="openLightbox(this.src)">
-                <div class="evidencia-info">
-                    <h3>Cloud Storage</h3>
-                    <p>Bucket <strong>streaming-serverless-dataflow-staging</strong> configurado para staging y archivos temporales del pipeline de Dataflow.</p>
-                    <span class="evidencia-tag">Cloud Storage</span>
-                    <span class="evidencia-tag">Staging</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Sección 2: Pipeline de Dataflow -->
-        <h2 id="pipeline" class="section-title">⚙️ Pipeline de Dataflow</h2>
-        <div class="evidencias-grid">
-            <div class="evidencia-card">
-                <img src="img/evidencia-04-dataflow-graph.png" 
-                     alt="Grafo del Pipeline Dataflow" 
-                     class="evidencia-image"
-                     onclick="openLightbox(this.src)">
-                <div class="evidencia-info">
-                    <h3>Grafo del Pipeline</h3>
-                    <p>Visualización del flujo de datos: lectura desde Pub/Sub → parsing JSON → ventanas temporales → agregación → escritura a BigQuery.</p>
-                    <span class="evidencia-tag">Dataflow</span>
-                    <span class="evidencia-tag">Apache Beam</span>
-                    <span class="evidencia-tag">Streaming</span>
-                </div>
-            </div>
-
-            <div class="evidencia-card">
-                <img src="img/evidencia-05-dataflow-metrics.png" 
-                     alt="Métricas del Job Dataflow" 
-                     class="evidencia-image"
-                     onclick="openLightbox(this.src)">
-                <div class="evidencia-info">
-                    <h3>Métricas en Tiempo Real</h3>
-                    <p>Throughput, latencia, y elementos procesados por el job de Dataflow durante la ejecución del pipeline de streaming.</p>
-                    <span class="evidencia-tag">Métricas</span>
-                    <span class="evidencia-tag">Monitoreo</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Sección 3: Resultados y Monitoreo -->
-        <h2 id="resultados" class="section-title">📈 Resultados y Monitoreo</h2>
-        <div class="evidencias-grid">
-            <div class="evidencia-card">
-                <img src="img/evidencia-06-bigquery-results.png" 
-                     alt="Resultados en BigQuery" 
-                     class="evidencia-image"
-                     onclick="openLightbox(this.src)">
-                <div class="evidencia-info">
-                    <h3>Datos Procesados</h3>
-                    <p>Consulta SQL mostrando agregaciones de transacciones por ventanas de 30 segundos: total de transacciones, sumas, promedios, máximos y mínimos.</p>
-                    <span class="evidencia-tag">BigQuery</span>
-                    <span class="evidencia-tag">Resultados</span>
-                    <span class="evidencia-tag">SQL</span>
-                </div>
-            </div>
-
-            <div class="evidencia-card">
-                <img src="img/evidencia-07-pubsub-metrics.png" 
-                     alt="Métricas de Pub/Sub" 
-                     class="evidencia-image"
-                     onclick="openLightbox(this.src)">
-                <div class="evidencia-info">
-                    <h3>Métricas de Pub/Sub</h3>
-                    <p>Gráficas de mensajes publicados, entregados y throughput del sistema de mensajería en tiempo real.</p>
-                    <span class="evidencia-tag">Pub/Sub</span>
-                    <span class="evidencia-tag">Métricas</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Sección 4: Testing y Calidad -->
-        <h2 id="testing" class="section-title">🧪 Testing y Calidad del Código</h2>
-        <div class="evidencias-grid">
-            <div class="evidencia-card">
-                <img src="img/evidencia-08-tests-coverage.png" 
-                     alt="Tests y Cobertura" 
-                     class="evidencia-image"
-                     onclick="openLightbox(this.src)">
-                <div class="evidencia-info">
-                    <h3>Suite de Tests</h3>
-                    <p>14 tests unitarios pasados exitosamente con 66% de cobertura de código usando pytest y pytest-cov.</p>
-                    <span class="evidencia-tag">Testing</span>
-                    <span class="evidencia-tag">pytest</span>
-                    <span class="evidencia-tag">100% Pass</span>
-                </div>
-            </div>
-
-            <div class="evidencia-card">
-                <img src="img/evidencia-09-coverage-report.png" 
-                     alt="Reporte de Cobertura" 
-                     class="evidencia-image"
-                     onclick="openLightbox(this.src)">
-                <div class="evidencia-info">
-                    <h3>Reporte de Cobertura</h3>
-                    <p>Análisis detallado línea por línea mostrando qué partes del código están cubiertas por los tests automatizados.</p>
-                    <span class="evidencia-tag">Coverage</span>
-                    <span class="evidencia-tag">Calidad</span>
-                </div>
-            </div>
-        </div>
-
-        <div style="text-align: center; margin: 2rem 0;">
-            <a href="index.html" class="back-button">← Volver al Inicio</a>
-        </div>
-    </div>
-
-    <!-- Lightbox Modal -->
-    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-        <button class="lightbox-nav lightbox-prev" onclick="event.stopPropagation(); navigateLightbox(-1)">‹</button>
-        <img id="lightbox-img" class="lightbox-content" src="" alt="Imagen ampliada" onclick="event.stopPropagation()">
-        <button class="lightbox-nav lightbox-next" onclick="event.stopPropagation(); navigateLightbox(1)">›</button>
-        <div class="lightbox-counter" id="lightbox-counter"></div>
-    </div>
-
-    <!-- Botón Scroll to Top -->
-    <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()" title="Volver arriba">↑</button>
-
-    <script>
+        <script>
         // Array de todas las imágenes para navegación en lightbox
         const images = Array.from(document.querySelectorAll('.evidencia-image')).map(img => img.src);
         let currentImageIndex = 0;
@@ -733,20 +763,24 @@
         });
     </script>
 
-    <!-- Sección GitHub -->
-    <div class="github-section">
-        <h2>🚀 Explora el Código Completo</h2>
-        <p>Todo el código fuente, configuraciones y documentación están disponibles en GitHub</p>
-        <a href="https://github.com/Edushuaia/streaming-serverless-pipeline" target="_blank" class="github-button">
-            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-            </svg>
-            Ver Proyecto en GitHub
-        </a>
-    </div>
+        <!-- Sección GitHub -->
+        <div class="github-section">
+            <h2>🚀 Explora el Código Completo</h2>
+            <p>Todo el código fuente, configuraciones y documentación están
+                disponibles en GitHub</p>
+            <a href="https://github.com/Edushuaia/streaming-serverless-pipeline"
+                target="_blank" rel="noopener" class="github-button">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+                </svg>
+                Ver Proyecto en GitHub
+            </a>
+        </div>
 
-    <footer style="text-align: center; padding: 2rem; background: #f7fafc; margin-top: 3rem; border-top: 2px solid #e2e8f0;">
-        <p style="color: #718096; margin: 0;">&copy; 2025 Eduardo Villena Lozano | Ingeniería de Datos</p>
-    </footer>
-</body>
+        <footer class="page-footer">
+            <p class="footer-text">&copy; 2025 Eduardo Villena Lozano |
+                Ingeniería de Datos</p>
+        </footer>
+    </body>
 </html>

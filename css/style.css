@@ -769,3 +769,108 @@ footer {
         width: 100%;
     }
 }
+
+/* Clases adicionales para evidencias.html */
+.back-button-container {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.page-footer {
+    text-align: center;
+    padding: 2rem;
+    background: #f7fafc;
+    margin-top: 3rem;
+    border-top: 2px solid #e2e8f0;
+}
+
+.footer-text {
+    color: #718096;
+    margin: 0;
+}
+
+/* Clases para index.html */
+.tech-badge-evidencias {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.cta-box {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+}
+
+.cta-box h3 {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.cta-box p {
+    color: white;
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+}
+
+.cta-button {
+    display: inline-block;
+    background: white;
+    color: #667eea;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.cta-button:hover {
+    transform: scale(1.05);
+}
+
+/* Clases para linkedin-cover.html */
+.instructions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flow-subtitle {
+    font-size: 11px;
+    margin-top: 5px;
+    opacity: 0.8;
+}
+
+.linkedin-text-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.linkedin-textarea {
+    width: 100%;
+    height: 400px;
+    padding: 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 10px;
+}
+
+.pro-tip-box {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f7fafc;
+    border-left: 4px solid #667eea;
+    border-radius: 5px;
+}
+
+.pro-tip-title {
+    color: #667eea;
+}
+
+.pro-tip-text {
+    color: #4a5568;
+}
