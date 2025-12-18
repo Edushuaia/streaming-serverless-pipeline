@@ -85,6 +85,24 @@
                     </ul>
                 </div>
 
+                <div class="info-box" style="background: linear-gradient(135deg, #f6f8fb 0%, #e9ecef 100%); border-left: 4px solid #4285F4; padding: 1.5rem; margin: 2rem 0; border-radius: 8px;">
+                    <h4 style="margin-top: 0; color: #2d3748; display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 1.5rem;">📦</span> Infraestructura: Cloud Storage
+                    </h4>
+                    <p style="margin-bottom: 0; color: #4a5568; line-height: 1.6;">
+                        Aunque <strong>Cloud Storage no aparece en el flujo de datos principal</strong> (Pub/Sub → Dataflow → BigQuery), 
+                        Dataflow lo utiliza internamente como infraestructura necesaria:
+                    </p>
+                    <ul style="color: #4a5568; margin: 1rem 0 0 1.5rem; line-height: 1.8;">
+                        <li><strong>Staging Location</strong> (<code>gs://bucket/staging/</code>): Almacena el código del pipeline y las dependencias Python</li>
+                        <li><strong>Temp Location</strong> (<code>gs://bucket/temp/</code>): Guarda archivos de trabajo temporal durante las operaciones de shuffle y agregación</li>
+                        <li><strong>Distribución de Workers</strong>: Los workers descargan el código desde el bucket al iniciar</li>
+                    </ul>
+                    <p style="margin: 1rem 0 0 0; color: #718096; font-size: 0.9rem; font-style: italic;">
+                        💡 Los datos procesados <strong>NO</strong> se almacenan en Storage, van directamente de Pub/Sub a BigQuery vía memoria.
+                    </p>
+                </div>
+
                 <a href="https://cloud.google.com/dataflow" target="_blank" rel="noopener noreferrer"
                     class="official-link">Documentación Oficial de Google Cloud
                     Dataflow</a>
