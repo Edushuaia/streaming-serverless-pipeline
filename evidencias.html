@@ -535,6 +535,14 @@
     </head>
     <body>
         <div class="evidencias-container" id="top">
+            <!-- Modal de Fases -->
+            <div id="phaseModal" style="display:none;position:fixed;z-index:10000;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+                <div style="background:white;max-width:400px;padding:2rem 1.5rem;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.25);position:relative;text-align:left;">
+                    <span id="closePhaseModal" style="position:absolute;top:12px;right:18px;font-size:2rem;cursor:pointer;color:#667eea;font-weight:bold;">&times;</span>
+                    <h2 id="phaseModalTitle" style="margin-top:0;color:#2d3748;font-size:1.3em;"></h2>
+                    <p id="phaseModalText" style="color:#444;font-size:1em;line-height:1.5;margin-bottom:0;"></p>
+                </div>
+            </div>
             <div class="evidencias-header">
                 <h1>📊 Evidencias del Proyecto Educativo</h1>
                 <p>Pipeline Serverless para Procesamiento de Datos Científicos
@@ -603,23 +611,23 @@
             <div class="implementation-flow">
                 <h2 class="section-title">🔄 Proceso de Implementación</h2>
                 <div class="flow-diagram">
-                    <svg viewBox="0 0 1000 900" xmlns="http://www.w3.org/2000/svg">
+                    <svg viewBox="0 0 1000 900" xmlns="http://www.w3.org/2000/svg" id="flowSVG">
                         <defs>
                             <linearGradient id="gradPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                                <stop offset="0%" class="svg-stop-gradPrimary-0" />
+                                <stop offset="100%" class="svg-stop-gradPrimary-100" />
                             </linearGradient>
                             <linearGradient id="gradSuccess" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#48bb78;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#38a169;stop-opacity:1" />
+                                <stop offset="0%" class="svg-stop-gradSuccess-0" />
+                                <stop offset="100%" class="svg-stop-gradSuccess-100" />
                             </linearGradient>
                             <linearGradient id="gradWarning" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#ed8936;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#dd6b20;stop-opacity:1" />
+                                <stop offset="0%" class="svg-stop-gradWarning-0" />
+                                <stop offset="100%" class="svg-stop-gradWarning-100" />
                             </linearGradient>
                             <linearGradient id="gradInfo" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#4299e1;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#3182ce;stop-opacity:1" />
+                                <stop offset="0%" class="svg-stop-gradInfo-0" />
+                                <stop offset="100%" class="svg-stop-gradInfo-100" />
                             </linearGradient>
                             <filter id="shadow">
                                 <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.25"/>
@@ -1053,6 +1061,59 @@
             title="Volver arriba">↑</button>
 
         <script>
+                // Modal de Fases
+                const phaseModal = document.getElementById('phaseModal');
+                const phaseModalTitle = document.getElementById('phaseModalTitle');
+                const phaseModalText = document.getElementById('phaseModalText');
+                document.getElementById('closePhaseModal').onclick = () => phaseModal.style.display = 'none';
+
+                // Explicaciones de cada fase
+                const phaseExplanations = [
+                    {
+                        title: 'Fase 1: Planificación',
+                        text: 'En esta fase se define el alcance, los objetivos y los requisitos del proyecto. Se realiza el análisis de necesidades, se diseña la arquitectura y se seleccionan los servicios de Google Cloud Platform más adecuados. Una buena planificación garantiza eficiencia y minimiza riesgos.'
+                    },
+                    {
+                        title: 'Fase 2: Desarrollo',
+                        text: 'Aquí se implementa el pipeline de procesamiento de datos usando Apache Beam y Python. Se desarrollan los componentes principales, simuladores y pruebas unitarias para asegurar la calidad y funcionalidad del sistema.'
+                    },
+                    {
+                        title: 'Fase 3: Infraestructura',
+                        text: 'Se configuran los recursos en GCP: Pub/Sub para mensajería, BigQuery para almacenamiento de datos, Cloud Storage para archivos temporales y IAM para la seguridad. Una infraestructura bien diseñada es clave para la escalabilidad y el rendimiento.'
+                    },
+                    {
+                        title: 'Fase 4: Despliegue',
+                        text: 'El pipeline se despliega en Dataflow, aprovechando el autoescalado y la gestión serverless. Se publican los datos y se monitoriza el procesamiento en tiempo real para validar el correcto funcionamiento.'
+                    },
+                    {
+                        title: 'Fase 5: Validación',
+                        text: 'Se ejecutan pruebas automatizadas y se analiza la cobertura de código. Se revisan los resultados en BigQuery y las métricas del sistema para asegurar la calidad y precisión del procesamiento.'
+                    },
+                    {
+                        title: 'Fase 6: Documentación',
+                        text: 'Se recopilan evidencias, se documenta el proceso y se publica el proyecto en GitHub y LinkedIn. Una documentación clara facilita la comprensión, el mantenimiento y la difusión del trabajo realizado.'
+                    }
+                ];
+
+                // Asignar eventos a las fases del diagrama
+                window.addEventListener('DOMContentLoaded', function() {
+                    const svg = document.getElementById('flowSVG');
+                    if (!svg) return;
+                    const phaseGroups = svg.querySelectorAll('.flow-phase');
+                    phaseGroups.forEach((group, idx) => {
+                        group.style.cursor = 'pointer';
+                        group.addEventListener('click', function(e) {
+                            phaseModalTitle.textContent = phaseExplanations[idx].title;
+                            phaseModalText.textContent = phaseExplanations[idx].text;
+                            phaseModal.style.display = 'flex';
+                            e.stopPropagation();
+                        });
+                    });
+                });
+                // Cerrar modal al hacer clic fuera
+                phaseModal.onclick = function(e) {
+                    if (e.target === phaseModal) phaseModal.style.display = 'none';
+                };
         // Array de todas las imágenes para navegación en lightbox
         const images = Array.from(document.querySelectorAll('.evidencia-image')).map(img => img.src);
         let currentImageIndex = 0;
